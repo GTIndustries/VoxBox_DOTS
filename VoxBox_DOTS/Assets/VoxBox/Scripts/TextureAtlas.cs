@@ -12,7 +12,7 @@ namespace VoxBox.Scripts {
         BEDROCK =  0,
         GRASS   =  1,
         COBBLE  =  2,
-        STONE   =  3,
+        LIMESTONE   =  3,
         DIRT    =  4,
         LOG     =  5
     }
@@ -25,7 +25,7 @@ namespace VoxBox.Scripts {
         GRASS      =  1,
         GRASS_SIDE =  2,
         COBBLE     =  3,
-        STONE      =  4,
+        LIMESTONE      =  4,
         DIRT       =  5,
         LOG_TOP    =  6,
         LOG_SIDE   =  7,
@@ -55,35 +55,35 @@ namespace VoxBox.Scripts {
     }
 
     public class TextureAtlas : MonoBehaviour {
-        [SerializeField] private SpriteAtlas voxelSpriteAtlas;
+        [SerializeField] private SpriteAtlas voxelSpriteAtlas = null;
         
         public static            SpriteAtlas voxelAtlas;
         //[SerializeField] private Material _voxelMaterial;
         public static Material voxelMaterial;
-        public static Dictionary<TextureID, UV> textureUvs = new Dictionary<TextureID, UV>();
-        public static Dictionary<TextureID, string> textureNames = new Dictionary<TextureID, string> {
+        public static readonly Dictionary<TextureID, UV> TextureUVs = new Dictionary<TextureID, UV>();
+        public static readonly Dictionary<TextureID, string> textureNames = new Dictionary<TextureID, string> {
             {TextureID.NULL,       "debug"},
             {TextureID.LOGO,       "logo"},
             {TextureID.AIR,        "air"}, 
             {TextureID.GRASS,      "grass"}, 
             {TextureID.GRASS_SIDE, "grass_side"}, 
             {TextureID.COBBLE,     "cobble"}, 
-            {TextureID.STONE,      "stone"}, 
+            {TextureID.LIMESTONE,  "stone"}, 
             {TextureID.BEDROCK,    "bedrock"}, 
             {TextureID.DIRT,       "dirt"}, 
             {TextureID.LOG_TOP,    "wood_log_top"}, 
             {TextureID.LOG_SIDE,   "wood_log_side"}
         };
-        public static Dictionary<VoxelID, string> voxelNames = new Dictionary<VoxelID, string> {
-            {VoxelID.NULL,    "Null"},
-            {VoxelID.LOGO,    "GTIndustries Logo"},
-            {VoxelID.AIR,     "Air"}, 
-            {VoxelID.GRASS,   "Grass"}, 
-            {VoxelID.COBBLE,  "Cobblestone"}, 
-            {VoxelID.STONE,   "Limestone"}, 
-            {VoxelID.BEDROCK, "Bedrock"}, 
-            {VoxelID.DIRT,    "Dirt"}, 
-            {VoxelID.LOG,     "Oak Log"}
+        public static readonly Dictionary<VoxelID, string> voxelNames = new Dictionary<VoxelID, string> {
+            {VoxelID.NULL,      "Null"},
+            {VoxelID.LOGO,      "GTIndustries Logo"},
+            {VoxelID.AIR,       "Air"}, 
+            {VoxelID.GRASS,     "Grass"}, 
+            {VoxelID.COBBLE,    "Cobblestone"}, 
+            {VoxelID.LIMESTONE, "Limestone"}, 
+            {VoxelID.BEDROCK,   "Bedrock"}, 
+            {VoxelID.DIRT,      "Dirt"}, 
+            {VoxelID.LOG,       "Oak Log"}
         };
         private static readonly int BaseMap                = Shader.PropertyToID("_BaseMap");
         private static readonly int Smoothness             = Shader.PropertyToID("_Smoothness");
@@ -106,7 +106,7 @@ namespace VoxBox.Scripts {
 
             foreach (var textureID in (TextureID[])Enum.GetValues(typeof(TextureID))) {
                 // Debug.Log($"{textureID} | Added to UV dictionary");
-                textureUvs.Add(
+                TextureUVs.Add(
                     textureID, 
                     new UV(sprites[textureID].uv[0],
                            sprites[textureID].uv[1],
@@ -116,7 +116,7 @@ namespace VoxBox.Scripts {
         }
 
         private static void MaterialSetup() {
-            var voxelShader  = Shader.Find("Universal Render Pipeline/Lit");
+            var voxelShader  = Shader.Find("HDRP/Lit");
             var voxelTexture = voxelAtlas.GetSprite("debug").texture;
             voxelTexture.anisoLevel = 0;
             voxelMaterial           = new Material(voxelShader);
@@ -152,7 +152,7 @@ namespace VoxBox.Scripts {
                     _               => TextureID.NULL
                 },
                 VoxelID.COBBLE  => TextureID.COBBLE,
-                VoxelID.STONE   => TextureID.STONE,
+                VoxelID.LIMESTONE   => TextureID.LIMESTONE,
                 VoxelID.DIRT    => TextureID.DIRT,
                 VoxelID.LOG     => face switch {
                     Direction.NORTH => TextureID.LOG_SIDE,

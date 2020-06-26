@@ -4,7 +4,7 @@ namespace VoxBox.Scripts.VoxelTypes {
     [Serializable]
     public class VoxelStone : Voxel {
         public VoxelStone() : base() {
-            VoxelID = VoxelID.STONE;
+            VoxelID = VoxelID.LIMESTONE;
         }
     
         public override bool ShouldRotate(Direction direction) {
@@ -21,12 +21,12 @@ namespace VoxBox.Scripts.VoxelTypes {
 
         public override TextureID GetFaceTexture(Direction face) {
             return face switch {
-                Direction.NORTH => TextureID.STONE,
-                Direction.EAST  => TextureID.STONE,
-                Direction.SOUTH => TextureID.STONE,
-                Direction.WEST  => TextureID.STONE,
-                Direction.UP    => TextureID.STONE,
-                Direction.DOWN  => TextureID.STONE,
+                Direction.NORTH => TextureID.LIMESTONE,
+                Direction.EAST  => TextureID.LIMESTONE,
+                Direction.SOUTH => TextureID.LIMESTONE,
+                Direction.WEST  => TextureID.LIMESTONE,
+                Direction.UP    => TextureID.LIMESTONE,
+                Direction.DOWN  => TextureID.LIMESTONE,
                 _               => TextureID.NULL
             };
         }

@@ -38,6 +38,7 @@ namespace VoxBox.Scripts {
         }
 
         private void CreateWorld() {
+            var chunkCount = 0;
             for (var y = viewDistanceVertical; y > -viewDistanceVertical; --y) {
                 for (var x = -viewDistanceHorizontal; x < viewDistanceHorizontal; ++x) {
                     for (var z = -viewDistanceHorizontal; z < viewDistanceHorizontal; ++z) {
@@ -53,10 +54,12 @@ namespace VoxBox.Scripts {
                             CreateChunk(new int3(x * ChunkSize, 
                                                  y * ChunkSize, 
                                                  z * ChunkSize));
+                            ++chunkCount;
                         }
                     }
                 }
             }
+            Debug.Log($"Number of chunks: {chunkCount}");
         }
         
         private void CreateChunk(int3 worldPosition) {

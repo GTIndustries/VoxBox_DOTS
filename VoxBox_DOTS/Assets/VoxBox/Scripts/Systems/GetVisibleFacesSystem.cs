@@ -87,7 +87,7 @@ namespace VoxBox.Scripts.Systems {
                 VoxelID.NULL    => false,
                 VoxelID.GRASS   => true,
                 VoxelID.COBBLE  => true,
-                VoxelID.STONE   => true,
+                VoxelID.LIMESTONE   => true,
                 VoxelID.DIRT    => true,
                 VoxelID.LOG     => true,
                 _               => false
@@ -102,7 +102,7 @@ namespace VoxBox.Scripts.Systems {
                 VoxelID.NULL    => false,
                 VoxelID.GRASS   => true,
                 VoxelID.COBBLE  => true,
-                VoxelID.STONE   => true,
+                VoxelID.LIMESTONE   => true,
                 VoxelID.DIRT    => true,
                 VoxelID.LOG     => true,
                 _               => false

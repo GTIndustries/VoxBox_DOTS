@@ -65,7 +65,7 @@ namespace VoxBox.Scripts.Systems {
                 voxel = VoxelID.DIRT;
                 
                 if (trueY < -2) {
-                    voxel = VoxelID.STONE;
+                    voxel = VoxelID.LIMESTONE;
                 }
             }
             
