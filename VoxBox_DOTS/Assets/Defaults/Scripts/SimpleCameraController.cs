@@ -3,18 +3,13 @@
 
 #if ENABLE_INPUT_SYSTEM && ENABLE_INPUT_SYSTEM_PACKAGE
 #define USE_INPUT_SYSTEM
-    using UnityEngine.InputSystem;
-    using UnityEngine.InputSystem.Controls;
+using UnityEngine;
+using UnityEngine.InputSystem;
 #endif
 
-using UnityEngine;
-
-namespace UnityTemplateProjects
-{
-    public class SimpleCameraController : MonoBehaviour
-    {
-        class CameraState
-        {
+namespace Defaults.Scripts {
+    public class SimpleCameraController : MonoBehaviour {
+        private class CameraState {
             public float yaw;
             public float pitch;
             public float roll;
@@ -22,48 +17,43 @@ namespace UnityTemplateProjects
             public float y;
             public float z;
 
-            public void SetFromTransform(Transform t)
-            {
+            public void SetFromTransform(Transform t) {
                 pitch = t.eulerAngles.x;
-                yaw = t.eulerAngles.y;
-                roll = t.eulerAngles.z;
-                x = t.position.x;
-                y = t.position.y;
-                z = t.position.z;
+                yaw   = t.eulerAngles.y;
+                roll  = t.eulerAngles.z;
+                x     = t.position.x;
+                y     = t.position.y;
+                z     = t.position.z;
             }
 
-            public void Translate(Vector3 translation)
-            {
-                Vector3 rotatedTranslation = Quaternion.Euler(pitch, yaw, roll) * translation;
+            public void Translate(Vector3 translation) {
+                var rotatedTranslation = Quaternion.Euler(pitch, yaw, roll) * translation;
 
                 x += rotatedTranslation.x;
                 y += rotatedTranslation.y;
                 z += rotatedTranslation.z;
             }
 
-            public void LerpTowards(CameraState target, float positionLerpPct, float rotationLerpPct)
-            {
-                yaw = Mathf.Lerp(yaw, target.yaw, rotationLerpPct);
+            public void LerpTowards(CameraState target, float positionLerpPct, float rotationLerpPct) {
+                yaw   = Mathf.Lerp(yaw, target.yaw, rotationLerpPct);
                 pitch = Mathf.Lerp(pitch, target.pitch, rotationLerpPct);
-                roll = Mathf.Lerp(roll, target.roll, rotationLerpPct);
-                
+                roll  = Mathf.Lerp(roll, target.roll, rotationLerpPct);
+
                 x = Mathf.Lerp(x, target.x, positionLerpPct);
                 y = Mathf.Lerp(y, target.y, positionLerpPct);
                 z = Mathf.Lerp(z, target.z, positionLerpPct);
             }
 
-            public void UpdateTransform(Transform t)
-            {
+            public void UpdateTransform(Transform t) {
                 t.eulerAngles = new Vector3(pitch, yaw, roll);
-                t.position = new Vector3(x, y, z);
+                t.position    = new Vector3(x, y, z);
             }
         }
-        
-        CameraState m_TargetCameraState = new CameraState();
+
+        CameraState m_TargetCameraState        = new CameraState();
         CameraState m_InterpolatingCameraState = new CameraState();
 
-        [Header("Movement Settings")]
-        [Tooltip("Exponential boost factor on translation, controllable by mouse wheel.")]
+        [Header("Movement Settings")] [Tooltip("Exponential boost factor on translation, controllable by mouse wheel.")]
         public float boost = 3.5f;
 
         [Tooltip("Time it takes to interpolate camera position 99% of the way to the target."), Range(0.001f, 1f)]
@@ -71,7 +61,10 @@ namespace UnityTemplateProjects
 
         [Header("Rotation Settings")]
         [Tooltip("X = Change in mouse position.\nY = Multiplicative factor for camera rotation.")]
-        public AnimationCurve mouseSensitivityCurve = new AnimationCurve(new Keyframe(0f, 0.5f, 0f, 5f), new Keyframe(1f, 2.5f, 0f, 0f));
+        public AnimationCurve mouseSensitivityCurve = new AnimationCurve(
+            new Keyframe(0f, 0.5f, 0f, 5f),
+            new Keyframe(1f, 2.5f, 0f, 0f)
+        );
 
         public float mouseSensitivity = 1f;
 
@@ -81,48 +74,45 @@ namespace UnityTemplateProjects
         [Tooltip("Whether or not to invert our Y axis for mouse input to rotation.")]
         public bool invertY = false;
 
-        void OnEnable()
-        {
+        private void OnEnable() {
             m_TargetCameraState.SetFromTransform(transform);
             m_InterpolatingCameraState.SetFromTransform(transform);
         }
 
-        Vector3 GetInputTranslationDirection()
-        {
-            Vector3 direction = new Vector3();
-            if (Keyboard.current.wKey.isPressed)
-            {
+        private static Vector3 GetInputTranslationDirection() {
+            var direction = new Vector3();
+
+            if (Keyboard.current.wKey.isPressed) {
                 direction += Vector3.forward;
             }
-            if (Keyboard.current.sKey.isPressed)
-            {
+
+            if (Keyboard.current.sKey.isPressed) {
                 direction += Vector3.back;
             }
-            if (Keyboard.current.aKey.isPressed)
-            {
+
+            if (Keyboard.current.aKey.isPressed) {
                 direction += Vector3.left;
             }
-            if (Keyboard.current.dKey.isPressed)
-            {
+
+            if (Keyboard.current.dKey.isPressed) {
                 direction += Vector3.right;
             }
-            if (Keyboard.current.qKey.isPressed)
-            {
+
+            if (Keyboard.current.qKey.isPressed) {
                 direction += Vector3.down;
             }
-            if (Keyboard.current.eKey.isPressed)
-            {
+
+            if (Keyboard.current.eKey.isPressed) {
                 direction += Vector3.up;
             }
+
             return direction;
         }
-        
-        void Update()
-        {
-            Vector3 translation = Vector3.zero;
+
+        private void Update() {
+            var translation = Vector3.zero;
 
 #if ENABLE_LEGACY_INPUT_MANAGER
-
             // Exit Sample  
             if (Input.GetKey(KeyCode.Escape))
             {
@@ -147,7 +137,8 @@ namespace UnityTemplateProjects
             // Rotation
             if (Input.GetMouseButton(1))
             {
-                var mouseMovement = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y") * (invertY ? 1 : -1));
+                var mouseMovement =
+ new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y") * (invertY ? 1 : -1));
                 
                 var mouseSensitivityFactor = mouseSensitivityCurve.Evaluate(mouseMovement.magnitude);
 
@@ -168,52 +159,51 @@ namespace UnityTemplateProjects
             boost += Input.mouseScrollDelta.y * 0.2f;
             translation *= Mathf.Pow(2.0f, boost);
 
-#elif USE_INPUT_SYSTEM 
+#elif USE_INPUT_SYSTEM
             // TODO: make the new input system work
 
             // Exit Sample  
-            if (Keyboard.current.escapeKey.isPressed)
-            {
+            if (Keyboard.current.escapeKey.isPressed) {
                 Application.Quit();
-				#if UNITY_EDITOR
-				UnityEditor.EditorApplication.isPlaying = false; 
-				#endif
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#endif
             }
+
             // Hide and lock cursor when right mouse button pressed
-            if (Mouse.current.rightButton.isPressed)
-            {
+            if (Mouse.current.rightButton.isPressed) {
                 Cursor.lockState = CursorLockMode.Locked;
             }
 
             // Unlock and show cursor when right mouse button released
-            if (!Mouse.current.rightButton.isPressed)
-            {
-                Cursor.visible = true;
+            if (!Mouse.current.rightButton.isPressed) {
+                Cursor.visible   = true;
                 Cursor.lockState = CursorLockMode.None;
             }
 
             // Rotation
-            if (Mouse.current.rightButton.isPressed)
-            {
-                var mouseMovement = new Vector2(Mouse.current.delta.x.ReadValue(), Mouse.current.delta.y.ReadValue() * (invertY ? 1 : -1));
-                
+            if (Mouse.current.rightButton.isPressed) {
+                var mouseMovement = new Vector2(
+                    Mouse.current.delta.x.ReadValue(),
+                    Mouse.current.delta.y.ReadValue() * (invertY ? 1 : -1)
+                );
+
                 var mouseSensitivityFactor = mouseSensitivityCurve.Evaluate(mouseMovement.magnitude);
 
-                m_TargetCameraState.yaw += mouseMovement.x * mouseSensitivityFactor * mouseSensitivity;
+                m_TargetCameraState.yaw   += mouseMovement.x * mouseSensitivityFactor * mouseSensitivity;
                 m_TargetCameraState.pitch += mouseMovement.y * mouseSensitivityFactor * mouseSensitivity;
             }
-            
+
             // Translation
             translation = GetInputTranslationDirection() * Time.deltaTime;
 
             // Speed up movement when shift key held
-            if (Keyboard.current.leftShiftKey.isPressed)
-            {
+            if (Keyboard.current.leftShiftKey.isPressed) {
                 translation *= 10.0f;
             }
 
             // Modify movement by a boost factor (defined in Inspector and modified in play mode through the mouse scroll wheel)
-            boost += Mouse.current.scroll.y.ReadValue() * 0.2f;
+            boost       += Mouse.current.scroll.y.ReadValue() * 0.2f;
             translation *= Mathf.Pow(2.0f, boost);
 #endif
 
@@ -228,5 +218,4 @@ namespace UnityTemplateProjects
             m_InterpolatingCameraState.UpdateTransform(transform);
         }
     }
-
 }
