@@ -123,43 +123,48 @@ namespace VoxBox.Scripts.Systems {
                                          }
                                      }
                                  }
-                             }
+                             } 
+                             
+                             // Set done with meshing and updating
+                             ecb.RemoveComponent<UpdateChunkTag>(entityInQueryIndex, e);
+                             ecb.RemoveComponent<RenderChunkTag>(entityInQueryIndex, e);
+                             ecb.AddComponent<MeshedChunkTag>(entityInQueryIndex, e);
                          }
                      )
                     .ScheduleParallel();
 
-            Entities.WithAll<ChunkTag, UpdateChunkTag, RenderChunkTag>()
-                    .WithoutBurst()
-                    .ForEach(
-                         (
-                             Entity                                   e,
-                             int                                      entityInQueryIndex,
-                             ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
-                             ref DynamicBuffer<NormalBufferElement>   normalBuffer,
-                             ref DynamicBuffer<UVBufferElement>       uvBuffer,
-                             ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
-                             in  Translation                          translation,
-                             in  Rotation                             rotation
-                         ) => {
-                             // create chunk mesh
-                             // var mesh = new Mesh();
-                             // SetMesh(
-                             //     mesh,
-                             //     vertexBuffer.Reinterpret<float3>(),
-                             //     uvBuffer.Reinterpret<float2>(),
-                             //     normalBuffer.Reinterpret<float3>(),
-                             //     triangleBuffer.Reinterpret<int>()
-                             // );
-                             //
-                             // Graphics.DrawMeshNow(mesh, translation.Value, rotation.Value);
-
-                             // Set done with meshing and updating
-                             ecb2.RemoveComponent<UpdateChunkTag>(e);
-                             ecb2.RemoveComponent<RenderChunkTag>(e);
-                             ecb2.AddComponent<MeshedChunkTag>(e);
-                         }
-                     )
-                    .Run();
+            // Entities.WithAll<ChunkTag, UpdateChunkTag, RenderChunkTag>()
+            //         .WithoutBurst()
+            //         .ForEach(
+            //              (
+            //                  Entity                                   e,
+            //                  int                                      entityInQueryIndex,
+            //                  ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
+            //                  ref DynamicBuffer<NormalBufferElement>   normalBuffer,
+            //                  ref DynamicBuffer<UVBufferElement>       uvBuffer,
+            //                  ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
+            //                  in  Translation                          translation,
+            //                  in  Rotation                             rotation
+            //              ) => {
+            //                  // create chunk mesh
+            //                  // var mesh = new Mesh();
+            //                  // SetMesh(
+            //                  //     mesh,
+            //                  //     vertexBuffer.Reinterpret<float3>(),
+            //                  //     uvBuffer.Reinterpret<float2>(),
+            //                  //     normalBuffer.Reinterpret<float3>(),
+            //                  //     triangleBuffer.Reinterpret<int>()
+            //                  // );
+            //                  //
+            //                  // Graphics.DrawMeshNow(mesh, translation.Value, rotation.Value);
+            //
+            //                  // Set done with meshing and updating
+            //                  ecb2.RemoveComponent<UpdateChunkTag>(e);
+            //                  ecb2.RemoveComponent<RenderChunkTag>(e);
+            //                  ecb2.AddComponent<MeshedChunkTag>(e);
+            //              }
+            //          )
+            //         .Run();
             
             _commandsBuffer.AddJobHandleForProducer(Dependency);
         }
