@@ -25,8 +25,8 @@ namespace VoxBox.Scripts.Systems {
                              ref DynamicBuffer<VoxelBufferElement>        voxelBuffer,
                              ref DynamicBuffer<VisibleFacesBufferElement> visibleFacesBuffer
                          ) => {
-                             for (var y = 0; y < ChunkSize; ++y) {
-                                 for (var x = 0; x < ChunkSize; ++x) {
+                             for (var x = 0; x < ChunkSize; ++x) {
+                                 for (var y = 0; y < ChunkSize; ++y) {
                                      for (var z = 0; z < ChunkSize; ++z) {
                                          VisibleFacesBufferElement face;
 
@@ -38,22 +38,22 @@ namespace VoxBox.Scripts.Systems {
                                          else {
                                              var left =
                                                  x >= 1
-                                              && !IsOpaque(voxelBuffer[GetIndex(x - 1, y, z)].value);
+                                              && IsOpaque(voxelBuffer[GetIndex(x - 1, y, z)].value);
                                              var bottom =
                                                  y >= 1
-                                              && !IsOpaque(voxelBuffer[GetIndex(x, y - 1, z)].value);
+                                              && IsOpaque(voxelBuffer[GetIndex(x, y - 1, z)].value);
                                              var front =
                                                  z >= 1
-                                              && !IsOpaque(voxelBuffer[GetIndex(x, y, z - 1)].value);
+                                              && IsOpaque(voxelBuffer[GetIndex(x, y, z - 1)].value);
                                              var right =
                                                  x < ChunkSize - 1
-                                              && !IsOpaque(voxelBuffer[GetIndex(x + 1, y, z)].value);
+                                              && IsOpaque(voxelBuffer[GetIndex(x + 1, y, z)].value);
                                              var top =
                                                  y < ChunkSize - 1
-                                              && !IsOpaque(voxelBuffer[GetIndex(x, y + 1, z)].value);
+                                              && IsOpaque(voxelBuffer[GetIndex(x, y + 1, z)].value);
                                              var back =
                                                  z < ChunkSize - 1
-                                              && !IsOpaque(voxelBuffer[GetIndex(x, y, z + 1)].value);
+                                              && IsOpaque(voxelBuffer[GetIndex(x, y, z + 1)].value);
 
                                              face = new VisibleFacesBufferElement {
                                                  west =
@@ -88,7 +88,7 @@ namespace VoxBox.Scripts.Systems {
 
                              // Mark as ready for render
                              ecb.RemoveComponent<CalculateFacesTag>(entityInQueryIndex, e);
-                             ecb.AddComponent<RenderChunkTag>(entityInQueryIndex, e);
+                             ecb.AddComponent<CreateMeshChunkTag>(entityInQueryIndex, e);
                          }
                      )
                     .ScheduleParallel();

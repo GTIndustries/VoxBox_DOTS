@@ -6,7 +6,7 @@ namespace VoxBox.Scripts.Components.Buffers {
     [DisallowMultipleComponent]
     [RequiresEntityConversion]
     public class VertexBufferElementAuthoring : MonoBehaviour, IConvertGameObjectToEntity {
-        private static int VertexArrayLength { get; } = 0;//GameWorld.ChunkSize * GameWorld.ChunkSize * GameWorld.ChunkSize * 4 * 6;
+        private static int VertexArrayLength { get; } = 1;//GameWorld.ChunkSize * GameWorld.ChunkSize * GameWorld.ChunkSize * 4 * 6;
 
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {
             var voxelBuffer = dstManager.AddBuffer<VertexBufferElement>(entity);

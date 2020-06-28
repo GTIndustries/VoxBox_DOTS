@@ -20,7 +20,7 @@ namespace VoxBox.Scripts.Components.Tags {
 
     [GenerateAuthoringComponent]
     [Serializable]
-    public struct MeshedChunkTag : IComponentData { }
+    public struct CreateMeshChunkTag : IComponentData { }
     
     [GenerateAuthoringComponent]
     [Serializable]
