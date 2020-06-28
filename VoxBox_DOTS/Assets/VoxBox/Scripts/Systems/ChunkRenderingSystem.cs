@@ -57,17 +57,17 @@ namespace VoxBox.Scripts.Systems {
                             triangleBuffer.Reinterpret<int>()
                         );
 
-                        Graphics.DrawMeshNow(mesh, translation.Value, rotation.Value);
-                        // if (EntityManager.HasComponent<RenderMesh>(e)) {
-                        //     var renderMesh =
-                        //         EntityManager.GetSharedComponentData<RenderMesh>(e);
-                        //     EntityManager.SetSharedComponentData(
-                        //         e,
-                        //         new RenderMesh() {
-                        //             mesh = mesh, material = renderMesh.material
-                        //         }
-                        //     );
-                        // }
+                        //Graphics.DrawMeshNow(mesh, translation.Value, rotation.Value);
+                        if (_entityManager.HasComponent<RenderMesh>(e)) {
+                            var renderMesh =
+                                _entityManager.GetSharedComponentData<RenderMesh>(e);
+                            _entityManager.SetSharedComponentData(
+                                e,
+                                new RenderMesh() {
+                                    mesh = mesh, material = renderMesh.material
+                                }
+                            );
+                        }
 
                         // Set done with meshing and updating
                         _entityManager.RemoveComponent<UpdateChunkTag>(e);
