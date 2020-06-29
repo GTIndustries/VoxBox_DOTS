@@ -7,15 +7,15 @@ using UnityEngine.U2D;
 
 namespace VoxBox.Scripts {
     public enum VoxelID {
-        NULL    = -666,
-        LOGO    = -11,
-        AIR     = -1,
-        BEDROCK =  0,
-        GRASS   =  1,
-        COBBLE  =  2,
-        LIMESTONE   =  3,
-        DIRT    =  4,
-        LOG     =  5
+        NULL      = -666,
+        LOGO      = -11,
+        AIR       = -1,
+        BEDROCK   =  0,
+        GRASS     =  1,
+        COBBLE    =  2,
+        LIMESTONE =  3,
+        DIRT      =  4,
+        LOG       =  5
     }
 
     public enum TextureID {
@@ -26,7 +26,7 @@ namespace VoxBox.Scripts {
         GRASS      =  1,
         GRASS_SIDE =  2,
         COBBLE     =  3,
-        LIMESTONE      =  4,
+        LIMESTONE  =  4,
         DIRT       =  5,
         LOG_TOP    =  6,
         LOG_SIDE   =  7,
@@ -87,8 +87,8 @@ namespace VoxBox.Scripts {
             {VoxelID.LOG,       "Oak Log"}
         };
         
-        private static readonly int BaseMap                = Shader.PropertyToID("_BaseMap");
-        private static readonly int Smoothness             = Shader.PropertyToID("_Smoothness");
+        private static readonly int BaseMap                = Shader.PropertyToID("_MainTex");
+        private static readonly int Smoothness             = Shader.PropertyToID("_Glossiness");
         private static readonly int ReceiveShadows         = Shader.PropertyToID("_ReceiveShadows");
         private static readonly int EnvironmentReflections = Shader.PropertyToID("_EnvironmentReflections");
 

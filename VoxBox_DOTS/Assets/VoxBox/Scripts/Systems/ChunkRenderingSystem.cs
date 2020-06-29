@@ -30,14 +30,14 @@ namespace VoxBox.Scripts.Systems {
                .WithStructuralChanges()
                .ForEach(
                     (
-                        Entity                                   e,
-                        int                                      entityInQueryIndex,
-                        ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
-                        ref DynamicBuffer<NormalBufferElement>   normalBuffer,
-                        ref DynamicBuffer<UVBufferElement>       uvBuffer,
-                        ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
-                        in  Translation                          translation,
-                        in  Rotation                             rotation
+                        Entity                                  e,
+                        int                                     entityInQueryIndex,
+                        in DynamicBuffer<VertexBufferElement>   vertexBuffer,
+                        in DynamicBuffer<NormalBufferElement>   normalBuffer,
+                        in DynamicBuffer<UVBufferElement>       uvBuffer,
+                        in DynamicBuffer<TriangleBufferElement> triangleBuffer,
+                        in Translation                          translation,
+                        in Rotation                             rotation
                     ) => {
                         //Debug.Log("Drawing mesh");
                         // create chunk mesh
@@ -57,17 +57,27 @@ namespace VoxBox.Scripts.Systems {
                             triangleBuffer.Reinterpret<int>()
                         );
 
-                        //Graphics.DrawMeshNow(mesh, translation.Value, rotation.Value);
-                        if (_entityManager.HasComponent<RenderMesh>(e)) {
-                            var renderMesh =
-                                _entityManager.GetSharedComponentData<RenderMesh>(e);
-                            _entityManager.SetSharedComponentData(
-                                e,
-                                new RenderMesh() {
-                                    mesh = mesh, material = renderMesh.material
-                                }
-                            );
-                        }
+                        Graphics.DrawMeshNow(mesh, translation.Value, rotation.Value);
+                        // if (_entityManager.HasComponent<RenderMesh>(e)) {
+                        //     var renderMesh =
+                        //         _entityManager.GetSharedComponentData<RenderMesh>(e);
+                        //     _entityManager.SetSharedComponentData(
+                        //         e,
+                        //         new RenderMesh() {
+                        //             mesh = mesh, material = TextureAtlas.voxelMaterial
+                        //         }
+                        //     );
+                        // }
+                        // if (_entityManager.HasComponent<RenderBounds>(e)) {
+                        //     var renderMesh =
+                        //         _entityManager.GetComponentData<RenderBounds>(e);
+                        //     _entityManager.SetComponentData(
+                        //         e,
+                        //         new RenderBounds() {
+                        //             Value = mesh.bounds.ToAABB()
+                        //         }
+                        //     );
+                        // }
 
                         // Set done with meshing and updating
                         _entityManager.RemoveComponent<UpdateChunkTag>(e);
@@ -100,6 +110,7 @@ namespace VoxBox.Scripts.Systems {
                 MeshTopology.Triangles,
                 0
             );
+            //mesh.RecalculateBounds();
             mesh.RecalculateNormals();
             // this.verticesList.Clear();
             // this.normalsList.Clear();

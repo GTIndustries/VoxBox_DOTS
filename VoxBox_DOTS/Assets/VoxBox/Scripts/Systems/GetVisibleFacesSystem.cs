@@ -56,28 +56,24 @@ namespace VoxBox.Scripts.Systems {
                                               && IsOpaque(voxelBuffer[GetIndex(x, y, z + 1)].value);
 
                                              face = new VisibleFacesBufferElement {
-                                                 west =
-                                                     left
-                                                         ? TextureID.AIR
-                                                         : TextureAtlas.GetFaceTexture(voxel, Direction.WEST),
-                                                 east =
-                                                     right
-                                                         ? TextureID.AIR
-                                                         : TextureAtlas.GetFaceTexture(voxel, Direction.EAST),
-                                                 down =
-                                                     bottom
-                                                         ? TextureID.AIR
-                                                         : TextureAtlas.GetFaceTexture(voxel, Direction.DOWN),
+                                                 west = left
+                                                     ? TextureID.AIR
+                                                     : TextureAtlas.GetFaceTexture(voxel, Direction.WEST),
+                                                 east = right
+                                                     ? TextureID.AIR
+                                                     : TextureAtlas.GetFaceTexture(voxel, Direction.EAST),
+                                                 down = bottom
+                                                     ? TextureID.AIR
+                                                     : TextureAtlas.GetFaceTexture(voxel, Direction.DOWN),
                                                  up = top
-                                                          ? TextureID.AIR
-                                                          : TextureAtlas.GetFaceTexture(voxel, Direction.UP),
-                                                 north =
-                                                     front
-                                                         ? TextureID.AIR
-                                                         : TextureAtlas.GetFaceTexture(voxel, Direction.NORTH),
+                                                     ? TextureID.AIR
+                                                     : TextureAtlas.GetFaceTexture(voxel, Direction.UP),
+                                                 north = front
+                                                     ? TextureID.AIR
+                                                     : TextureAtlas.GetFaceTexture(voxel, Direction.NORTH),
                                                  south = back
-                                                             ? TextureID.AIR
-                                                             : TextureAtlas.GetFaceTexture(voxel, Direction.SOUTH),
+                                                     ? TextureID.AIR
+                                                     : TextureAtlas.GetFaceTexture(voxel, Direction.SOUTH),
                                              };
                                          }
 

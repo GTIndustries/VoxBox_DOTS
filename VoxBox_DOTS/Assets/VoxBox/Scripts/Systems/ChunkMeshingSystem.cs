@@ -234,10 +234,13 @@ namespace VoxBox.Scripts.Systems {
                                      for (var z = 0; z < ChunkSize; ++z) {
                                          var index = GetIndex(x, y, z);
                                          var voxel = voxelBuffer[index];
+                                         //Debug.Log($"Voxel: {voxel.value}");
                                          if (voxel == VoxelID.AIR) continue;
 
                                          // TODO: Calculate mesh
                                          var faceBuffer = visibleFacesBuffer[index];
+                                         // for (var i = 0; i < 6; ++i)
+                                         //    Debug.Log($"{(Direction)i}: {faceBuffer[i]}");
 
                                          if (faceBuffer[0] != TextureID.AIR) {
                                              FaceDataNorth(

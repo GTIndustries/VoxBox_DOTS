@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: VoxelAtlas
+  m_Name: Atlas_Voxel
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -40,6 +40,7 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 0
       enableTightPacking: 1
+    secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 18bd3b9d5760cf3449e9d40f3a981155, type: 3}
@@ -88,5 +89,5 @@ SpriteAtlas:
   - wood_plank
   - debug_voxel
   - classic_cobble
-  m_Tag: VoxelAtlas
+  m_Tag: Atlas_Voxel
   m_IsVariant: 0
