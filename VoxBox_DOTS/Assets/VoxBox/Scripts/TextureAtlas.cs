@@ -89,6 +89,7 @@ namespace VoxBox.Scripts {
         
         private static readonly int BaseMap                = Shader.PropertyToID("_MainTex");
         private static readonly int Smoothness             = Shader.PropertyToID("_Glossiness");
+        private static readonly int Metallic               = Shader.PropertyToID("_Metallic");
         private static readonly int ReceiveShadows         = Shader.PropertyToID("_ReceiveShadows");
         private static readonly int EnvironmentReflections = Shader.PropertyToID("_EnvironmentReflections");
 
@@ -128,6 +129,7 @@ namespace VoxBox.Scripts {
             voxelMaterial           = new Material(voxelShader);
             voxelMaterial.SetTexture(BaseMap, voxelTexture);
             voxelMaterial.SetFloat(Smoothness, 0f);
+            voxelMaterial.SetFloat(Metallic, 1f);
             voxelMaterial.SetFloat(ReceiveShadows, 1f);
             voxelMaterial.SetFloat(EnvironmentReflections, 1f);
             voxelMaterial.enableInstancing        = true;

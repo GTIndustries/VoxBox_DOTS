@@ -50,34 +50,35 @@ namespace VoxBox.Scripts.Systems {
                         }
 
                         SetMesh(
-                            mesh,
+                            ref mesh,
                             vertexBuffer.Reinterpret<float3>(),
                             uvBuffer.Reinterpret<float2>(),
                             normalBuffer.Reinterpret<float3>(),
                             triangleBuffer.Reinterpret<int>()
                         );
 
-                        Graphics.DrawMeshNow(mesh, translation.Value, rotation.Value);
+                        //Graphics.DrawMeshNow(mesh, translation.Value, rotation.Value);
+                        
                         // if (_entityManager.HasComponent<RenderMesh>(e)) {
                         //     var renderMesh =
                         //         _entityManager.GetSharedComponentData<RenderMesh>(e);
                         //     _entityManager.SetSharedComponentData(
                         //         e,
                         //         new RenderMesh() {
-                        //             mesh = mesh, material = TextureAtlas.voxelMaterial
+                        //             mesh = mesh, 
+                        //             material = TextureAtlas.voxelMaterial
                         //         }
                         //     );
                         // }
-                        // if (_entityManager.HasComponent<RenderBounds>(e)) {
-                        //     var renderMesh =
-                        //         _entityManager.GetComponentData<RenderBounds>(e);
-                        //     _entityManager.SetComponentData(
-                        //         e,
-                        //         new RenderBounds() {
-                        //             Value = mesh.bounds.ToAABB()
-                        //         }
-                        //     );
-                        // }
+                        if (_entityManager.HasComponent<RenderBounds>(e)) {
+                            Debug.Log("Set RenderBounds");
+                            _entityManager.SetComponentData(
+                                e,
+                                new RenderBounds() {
+                                    Value = mesh.bounds.ToAABB()
+                                }
+                            );
+                        }
 
                         // Set done with meshing and updating
                         _entityManager.RemoveComponent<UpdateChunkTag>(e);
@@ -90,7 +91,7 @@ namespace VoxBox.Scripts.Systems {
         }
 
         private static void SetMesh(
-            Mesh                  mesh,
+            ref Mesh                  mesh,
             DynamicBuffer<float3> vertices,
             DynamicBuffer<float2> uvs,
             DynamicBuffer<float3> normals,

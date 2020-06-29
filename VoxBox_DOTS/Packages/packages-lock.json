@@ -164,11 +164,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.rendering.hybrid": {
-      "version": "0.5.1-preview.18",
+      "version": "0.5.2-preview.4",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.entities": "0.11.0-preview.7"
+        "com.unity.entities": "0.11.1-preview.4"
       },
       "url": "https://packages.unity.com"
     },
