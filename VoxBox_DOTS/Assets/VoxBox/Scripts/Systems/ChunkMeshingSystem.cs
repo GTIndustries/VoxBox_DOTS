@@ -164,10 +164,11 @@ namespace VoxBox.Scripts.Systems {
         }
     }
 
-    public class ChunkMeshingSystem : SystemBase {
+    public class ChunkMeshingSystem : SystemBase, IDisposable {
         private        World                                  _defaultWorld;
         private        EntityManager                          _entityManager;
         private static EndSimulationEntityCommandBufferSystem _commandsBuffer;
+
 
         private const int ChunkSize = GameWorld.ChunkSize;
         // private readonly List<Vector3> verticesList  = new List<Vector3>();
@@ -180,13 +181,37 @@ namespace VoxBox.Scripts.Systems {
 
             _defaultWorld  = World.DefaultGameObjectInjectionWorld;
             _entityManager = _defaultWorld.EntityManager;
+
+            //_textureUVs = new NativeHashMap<int, UV>(1, Allocator.Persistent);
         }
 
         protected override void OnUpdate() {
-            var ecb  = _commandsBuffer.CreateCommandBuffer().ToConcurrent();
-            var ecb2 = _commandsBuffer.CreateCommandBuffer();
+            // var group = GetEntityQuery(
+            //     ComponentType.ReadOnly<ChunkTag>(),
+            //     ComponentType.ReadOnly<UpdateChunkTag>(),
+            //     ComponentType.ReadOnly<CreateMeshChunkTag>()
+            // );
+
+            var ecb        = _commandsBuffer.CreateCommandBuffer().ToConcurrent();
+            var ecb2       = _commandsBuffer.CreateCommandBuffer();
+            var textureUVs = TextureAtlas.textureUVs;//new NativeHashMap<int, UV>(TextureAtlas.textureUVs.Capacity, Allocator.TempJob);
+
+            // if (group.CalculateEntityCount() != 0) {
+            //     var temp1 = TextureAtlas.textureUVs.GetKeyArray(Allocator.Temp);
+            //     var temp2 = TextureAtlas.textureUVs.GetValueArray(Allocator.Temp);
+            //
+            //     for (var i = 0; i < TextureAtlas.textureUVs.Count(); ++i) {
+            //         if (!textureUVs.TryAdd(temp1[i], temp2[i])) 
+            //             Debug.Log("Texture failed to acquire");
+            //     }
+            //
+            //     temp1.Dispose();
+            //     temp2.Dispose();
+            // }
+
 
             Entities.WithAll<ChunkTag, UpdateChunkTag, CreateMeshChunkTag>()
+                    .WithReadOnly(textureUVs)
                     .ForEach(
                          (
                              Entity                                       e,
@@ -202,13 +227,14 @@ namespace VoxBox.Scripts.Systems {
                              normalBuffer.Clear();
                              uvBuffer.Clear();
                              triangleBuffer.Clear();
-                             
+
                              // calculate chunk mesh
                              for (var y = 0; y < ChunkSize; ++y) {
                                  for (var x = 0; x < ChunkSize; ++x) {
                                      for (var z = 0; z < ChunkSize; ++z) {
                                          var index = GetIndex(x, y, z);
-                                         if (voxelBuffer[index] == VoxelID.AIR) continue;
+                                         var voxel = voxelBuffer[index];
+                                         if (voxel == VoxelID.AIR) continue;
 
                                          // TODO: Calculate mesh
                                          var faceBuffer = visibleFacesBuffer[index];
@@ -218,8 +244,11 @@ namespace VoxBox.Scripts.Systems {
                                                  x,
                                                  y,
                                                  z,
+                                                 voxel,
                                                  ref vertexBuffer,
-                                                 ref triangleBuffer
+                                                 ref triangleBuffer,
+                                                 ref uvBuffer,
+                                                 textureUVs
                                              );
                                          }
 
@@ -228,8 +257,11 @@ namespace VoxBox.Scripts.Systems {
                                                  x,
                                                  y,
                                                  z,
+                                                 voxel,
                                                  ref vertexBuffer,
-                                                 ref triangleBuffer
+                                                 ref triangleBuffer,
+                                                 ref uvBuffer,
+                                                 textureUVs
                                              );
                                          }
 
@@ -238,8 +270,11 @@ namespace VoxBox.Scripts.Systems {
                                                  x,
                                                  y,
                                                  z,
+                                                 voxel,
                                                  ref vertexBuffer,
-                                                 ref triangleBuffer
+                                                 ref triangleBuffer,
+                                                 ref uvBuffer,
+                                                 textureUVs
                                              );
                                          }
 
@@ -248,8 +283,11 @@ namespace VoxBox.Scripts.Systems {
                                                  x,
                                                  y,
                                                  z,
+                                                 voxel,
                                                  ref vertexBuffer,
-                                                 ref triangleBuffer
+                                                 ref triangleBuffer,
+                                                 ref uvBuffer,
+                                                 textureUVs
                                              );
                                          }
 
@@ -258,8 +296,11 @@ namespace VoxBox.Scripts.Systems {
                                                  x,
                                                  y,
                                                  z,
+                                                 voxel,
                                                  ref vertexBuffer,
-                                                 ref triangleBuffer
+                                                 ref triangleBuffer,
+                                                 ref uvBuffer,
+                                                 textureUVs
                                              );
                                          }
 
@@ -268,8 +309,11 @@ namespace VoxBox.Scripts.Systems {
                                                  x,
                                                  y,
                                                  z,
+                                                 voxel,
                                                  ref vertexBuffer,
-                                                 ref triangleBuffer
+                                                 ref triangleBuffer,
+                                                 ref uvBuffer,
+                                                 textureUVs
                                              );
                                          }
                                      }
@@ -286,6 +330,8 @@ namespace VoxBox.Scripts.Systems {
                          }
                      )
                     .ScheduleParallel();
+            
+            //textureUVs.Dispose();
 
             // Entities.WithAll<DisableSystemTag>().WithAll<ChunkTag, UpdateChunkTag, RenderChunkTag>()
             //         .WithoutBurst()
@@ -359,6 +405,7 @@ namespace VoxBox.Scripts.Systems {
             //         .ScheduleParallel();
 
             _commandsBuffer.AddJobHandleForProducer(Dependency);
+            //textureUVs.Dispose();
         }
 
         private static int GetIndex(int x, int y, int z) {
@@ -369,8 +416,11 @@ namespace VoxBox.Scripts.Systems {
             int                                      x,
             int                                      y,
             int                                      z,
+            VoxelID                                  voxelID,
             ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
-            ref DynamicBuffer<TriangleBufferElement> triangleBuffer
+            ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
+            ref DynamicBuffer<UVBufferElement>       uvBuffer,
+            in  NativeHashMap<int, UV>               textureUVs
         ) {
             vertexBuffer.Add(new float3(x - 0.5f, y + 0.5f, z - 0.5f));
             vertexBuffer.Add(new float3(x - 0.5f, y + 0.5f, z + 0.5f));
@@ -384,14 +434,25 @@ namespace VoxBox.Scripts.Systems {
             triangleBuffer.Add(vertexBuffer.Length - 4);
             triangleBuffer.Add(vertexBuffer.Length - 2);
             triangleBuffer.Add(vertexBuffer.Length - 1);
+
+            var uvs = new NativeArray<float2>(4, Allocator.Temp);
+            FaceUVs(x, y, z, voxelID, Direction.UP, ref uvs, textureUVs);
+            uvBuffer.Add(uvs[0]);
+            uvBuffer.Add(uvs[1]);
+            uvBuffer.Add(uvs[2]);
+            uvBuffer.Add(uvs[3]);
+            uvs.Dispose();
         }
 
         private static void FaceDataDown(
             int                                      x,
             int                                      y,
             int                                      z,
+            VoxelID                                  voxelID,
             ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
-            ref DynamicBuffer<TriangleBufferElement> triangleBuffer
+            ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
+            ref DynamicBuffer<UVBufferElement>       uvBuffer,
+            in  NativeHashMap<int, UV>               textureUVs
         ) {
             vertexBuffer.Add(new float3(x - 0.5f, y - 0.5f, z + 0.5f));
             vertexBuffer.Add(new float3(x - 0.5f, y - 0.5f, z - 0.5f));
@@ -405,14 +466,25 @@ namespace VoxBox.Scripts.Systems {
             triangleBuffer.Add(vertexBuffer.Length - 4);
             triangleBuffer.Add(vertexBuffer.Length - 2);
             triangleBuffer.Add(vertexBuffer.Length - 1);
+
+            var uvs = new NativeArray<float2>(4, Allocator.Temp);
+            FaceUVs(x, y, z, voxelID, Direction.DOWN, ref uvs, textureUVs);
+            uvBuffer.Add(uvs[0]);
+            uvBuffer.Add(uvs[1]);
+            uvBuffer.Add(uvs[2]);
+            uvBuffer.Add(uvs[3]);
+            uvs.Dispose();
         }
 
         private static void FaceDataNorth(
             int                                      x,
             int                                      y,
             int                                      z,
+            VoxelID                                  voxelID,
             ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
-            ref DynamicBuffer<TriangleBufferElement> triangleBuffer
+            ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
+            ref DynamicBuffer<UVBufferElement>       uvBuffer,
+            in  NativeHashMap<int, UV>               textureUVs
         ) {
             vertexBuffer.Add(new float3(x - 0.5f, y - 0.5f, z - 0.5f));
             vertexBuffer.Add(new float3(x - 0.5f, y + 0.5f, z - 0.5f));
@@ -426,14 +498,25 @@ namespace VoxBox.Scripts.Systems {
             triangleBuffer.Add(vertexBuffer.Length - 4);
             triangleBuffer.Add(vertexBuffer.Length - 2);
             triangleBuffer.Add(vertexBuffer.Length - 1);
+
+            var uvs = new NativeArray<float2>(4, Allocator.Temp);
+            FaceUVs(x, y, z, voxelID, Direction.NORTH, ref uvs, textureUVs);
+            uvBuffer.Add(uvs[0]);
+            uvBuffer.Add(uvs[1]);
+            uvBuffer.Add(uvs[2]);
+            uvBuffer.Add(uvs[3]);
+            uvs.Dispose();
         }
 
         private static void FaceDataEast(
             int                                      x,
             int                                      y,
             int                                      z,
+            VoxelID                                  voxelID,
             ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
-            ref DynamicBuffer<TriangleBufferElement> triangleBuffer
+            ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
+            ref DynamicBuffer<UVBufferElement>       uvBuffer,
+            in  NativeHashMap<int, UV>               textureUVs
         ) {
             vertexBuffer.Add(new float3(x + 0.5f, y - 0.5f, z - 0.5f));
             vertexBuffer.Add(new float3(x + 0.5f, y + 0.5f, z - 0.5f));
@@ -447,14 +530,25 @@ namespace VoxBox.Scripts.Systems {
             triangleBuffer.Add(vertexBuffer.Length - 4);
             triangleBuffer.Add(vertexBuffer.Length - 2);
             triangleBuffer.Add(vertexBuffer.Length - 1);
+
+            var uvs = new NativeArray<float2>(4, Allocator.Temp);
+            FaceUVs(x, y, z, voxelID, Direction.EAST, ref uvs, textureUVs);
+            uvBuffer.Add(uvs[0]);
+            uvBuffer.Add(uvs[1]);
+            uvBuffer.Add(uvs[2]);
+            uvBuffer.Add(uvs[3]);
+            uvs.Dispose();
         }
 
         private static void FaceDataSouth(
             int                                      x,
             int                                      y,
             int                                      z,
+            VoxelID                                  voxelID,
             ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
-            ref DynamicBuffer<TriangleBufferElement> triangleBuffer
+            ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
+            ref DynamicBuffer<UVBufferElement>       uvBuffer,
+            in  NativeHashMap<int, UV>               textureUVs
         ) {
             vertexBuffer.Add(new float3(x + 0.5f, y - 0.5f, z + 0.5f));
             vertexBuffer.Add(new float3(x + 0.5f, y + 0.5f, z + 0.5f));
@@ -468,14 +562,25 @@ namespace VoxBox.Scripts.Systems {
             triangleBuffer.Add(vertexBuffer.Length - 4);
             triangleBuffer.Add(vertexBuffer.Length - 2);
             triangleBuffer.Add(vertexBuffer.Length - 1);
+
+            var uvs = new NativeArray<float2>(4, Allocator.Temp);
+            FaceUVs(x, y, z, voxelID, Direction.SOUTH, ref uvs, textureUVs);
+            uvBuffer.Add(uvs[0]);
+            uvBuffer.Add(uvs[1]);
+            uvBuffer.Add(uvs[2]);
+            uvBuffer.Add(uvs[3]);
+            uvs.Dispose();
         }
 
         private static void FaceDataWest(
             int                                      x,
             int                                      y,
             int                                      z,
+            VoxelID                                  voxelID,
             ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
-            ref DynamicBuffer<TriangleBufferElement> triangleBuffer
+            ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
+            ref DynamicBuffer<UVBufferElement>       uvBuffer,
+            in  NativeHashMap<int, UV>               textureUVs
         ) {
             vertexBuffer.Add(new float3(x - 0.5f, y - 0.5f, z + 0.5f));
             vertexBuffer.Add(new float3(x - 0.5f, y + 0.5f, z + 0.5f));
@@ -489,6 +594,77 @@ namespace VoxBox.Scripts.Systems {
             triangleBuffer.Add(vertexBuffer.Length - 4);
             triangleBuffer.Add(vertexBuffer.Length - 2);
             triangleBuffer.Add(vertexBuffer.Length - 1);
+
+            var uvs = new NativeArray<float2>(4, Allocator.Temp);
+            FaceUVs(x, y, z, voxelID, Direction.WEST, ref uvs, textureUVs);
+            uvBuffer.Add(uvs[0]);
+            uvBuffer.Add(uvs[1]);
+            uvBuffer.Add(uvs[2]);
+            uvBuffer.Add(uvs[3]);
+            uvs.Dispose();
+        }
+
+        public static void FaceUVs(
+            int                        x,
+            int                        y,
+            int                        z,
+            VoxelID                    voxelID,
+            Direction                  direction,
+            ref NativeArray<float2>    uvs,
+            in  NativeHashMap<int, UV> textureUVs
+        ) {
+            var uv = textureUVs[(int)TextureAtlas.GetFaceTexture(voxelID, direction)];
+            //var fastNoise = new FastNoise();
+
+            var rotation = 0;
+            // if (ShouldRotate(direction)) {
+            //     rotation = Mathf.RoundToInt(
+            //         (Terrain.fastNoise.GetSimplex(
+            //              (x / (float)Chunk.chunkSize), 
+            //              (y / (float)Chunk.chunkSize), 
+            //              (z / (float)Chunk.chunkSize)) * 16f) % 4);
+            // }
+
+            switch (rotation) {
+                case 0:
+                    uvs[1] = new float2(uv.uv0.x, uv.uv0.y);
+                    uvs[2] = new float2(uv.uv1.x, uv.uv1.y);
+                    uvs[0] = new float2(uv.uv2.x, uv.uv2.y);
+                    uvs[3] = new float2(uv.uv3.x, uv.uv3.y);
+                    // Debug.Log(uv.uv0);
+                    // Debug.Log(uv.uv1);
+                    // Debug.Log(uv.uv2);
+                    // Debug.Log(uv.uv3);
+                    break;
+                case 1:
+                    uvs[2] = new float2(uv.uv0.x, uv.uv0.y);
+                    uvs[3] = new float2(uv.uv1.x, uv.uv1.y);
+                    uvs[1] = new float2(uv.uv2.x, uv.uv2.y);
+                    uvs[0] = new float2(uv.uv3.x, uv.uv3.y);
+                    break;
+                case 2:
+                    uvs[3] = new float2(uv.uv0.x, uv.uv0.y);
+                    uvs[0] = new float2(uv.uv1.x, uv.uv1.y);
+                    uvs[2] = new float2(uv.uv2.x, uv.uv2.y);
+                    uvs[1] = new float2(uv.uv3.x, uv.uv3.y);
+                    break;
+                case 3:
+                    uvs[0] = new float2(uv.uv0.x, uv.uv0.y);
+                    uvs[1] = new float2(uv.uv1.x, uv.uv1.y);
+                    uvs[3] = new float2(uv.uv2.x, uv.uv2.y);
+                    uvs[2] = new float2(uv.uv3.x, uv.uv3.y);
+                    break;
+                default:
+                    uvs[2] = new float2(uv.uv0.x, uv.uv0.y);
+                    uvs[1] = new float2(uv.uv1.x, uv.uv1.y);
+                    uvs[3] = new float2(uv.uv2.x, uv.uv2.y);
+                    uvs[0] = new float2(uv.uv3.x, uv.uv3.y);
+                    break;
+            }
+        }
+
+        public void Dispose() {
+            
         }
     }
 }

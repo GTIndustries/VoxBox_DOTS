@@ -10,13 +10,13 @@ using VoxBox.Scripts.Components.Tags;
 
 namespace VoxBox.Scripts.Systems {
     public class ChunkRenderingSystem : SystemBase {
-        private World         _defaultWorld;
-        private EntityManager _entityManager;
+        private        World                                  _defaultWorld;
+        private        EntityManager                          _entityManager;
         private static EndSimulationEntityCommandBufferSystem _commandsBuffer;
 
         protected override void OnCreate() {
-            _defaultWorld  = World.DefaultGameObjectInjectionWorld;
-            _entityManager = _defaultWorld.EntityManager;
+            _defaultWorld   = World.DefaultGameObjectInjectionWorld;
+            _entityManager  = _defaultWorld.EntityManager;
             _commandsBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
         }
 
@@ -75,7 +75,7 @@ namespace VoxBox.Scripts.Systems {
                     }
                 )
                .Run();
-            
+
             _commandsBuffer.AddJobHandleForProducer(Dependency);
         }
 

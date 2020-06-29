@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.U2D;
 
@@ -54,14 +55,13 @@ namespace VoxBox.Scripts {
         }
     }
 
-    public class TextureAtlas : MonoBehaviour {
+    public class TextureAtlas : MonoBehaviour, IDisposable {
         [SerializeField] private SpriteAtlas voxelSpriteAtlas = null;
-        
-        public static            SpriteAtlas voxelAtlas;
-        //[SerializeField] private Material _voxelMaterial;
+        public static SpriteAtlas voxelAtlas;
         public static Material voxelMaterial;
-        public static readonly Dictionary<TextureID, UV> TextureUVs = new Dictionary<TextureID, UV>();
-        public static readonly Dictionary<TextureID, string> textureNames = new Dictionary<TextureID, string> {
+        [ReadOnly] [NativeDisableParallelForRestriction] public static NativeHashMap<int, UV> textureUVs;
+        
+        public static readonly Dictionary<TextureID, string> TextureNames = new Dictionary<TextureID, string> {
             {TextureID.NULL,       "debug"},
             {TextureID.LOGO,       "logo"},
             {TextureID.AIR,        "air"}, 
@@ -74,7 +74,8 @@ namespace VoxBox.Scripts {
             {TextureID.LOG_TOP,    "wood_log_top"}, 
             {TextureID.LOG_SIDE,   "wood_log_side"}
         };
-        public static readonly Dictionary<VoxelID, string> voxelNames = new Dictionary<VoxelID, string> {
+        
+        public static readonly Dictionary<VoxelID, string> VoxelNames = new Dictionary<VoxelID, string> {
             {VoxelID.NULL,      "Null"},
             {VoxelID.LOGO,      "GTIndustries Logo"},
             {VoxelID.AIR,       "Air"}, 
@@ -85,6 +86,7 @@ namespace VoxBox.Scripts {
             {VoxelID.DIRT,      "Dirt"}, 
             {VoxelID.LOG,       "Oak Log"}
         };
+        
         private static readonly int BaseMap                = Shader.PropertyToID("_BaseMap");
         private static readonly int Smoothness             = Shader.PropertyToID("_Smoothness");
         private static readonly int ReceiveShadows         = Shader.PropertyToID("_ReceiveShadows");
@@ -95,6 +97,10 @@ namespace VoxBox.Scripts {
             //voxelMaterial = _voxelMaterial;
             //voxelMaterial.SetTexture("_BaseMap", voxelAtlas.GetSprite("debug").texture);
             MaterialSetup();
+        }
+
+        private void Start() {
+            textureUVs = new NativeHashMap<int, UV>(1, Allocator.Persistent);
             PopulateTextureDict();
         }
 
@@ -104,14 +110,14 @@ namespace VoxBox.Scripts {
                 textureID => voxelAtlas.GetSprite(GetTextureName(textureID))
             );
 
-            foreach (var textureID in (TextureID[])Enum.GetValues(typeof(TextureID))) {
+            foreach (var textureID in (int[])Enum.GetValues(typeof(TextureID))) {
                 // Debug.Log($"{textureID} | Added to UV dictionary");
-                TextureUVs.Add(
+                textureUVs.Add(
                     textureID, 
-                    new UV(sprites[textureID].uv[0],
-                           sprites[textureID].uv[1],
-                           sprites[textureID].uv[2],
-                           sprites[textureID].uv[3]));
+                    new UV(sprites[(TextureID)textureID].uv[0],
+                           sprites[(TextureID)textureID].uv[1],
+                           sprites[(TextureID)textureID].uv[2],
+                           sprites[(TextureID)textureID].uv[3]));
             }
         }
 
@@ -131,8 +137,12 @@ namespace VoxBox.Scripts {
     
         public static string GetTextureName(TextureID textureID) {
             string textureName;
-            if (!textureNames.TryGetValue(textureID, out textureName)) // if couldn't be found, use air
-                textureNames.TryGetValue(TextureID.AIR, out textureName);
+
+            if (!TextureNames.TryGetValue(textureID, out textureName)) {
+                // if couldn't be found, use air
+                Debug.Log("TextureID's texture name not found in dictionary");
+                TextureNames.TryGetValue(TextureID.NULL, out textureName);
+            }
             return textureName;
         }
         
@@ -165,6 +175,14 @@ namespace VoxBox.Scripts {
                 },
                 _               => TextureID.NULL
             };
+        }
+
+        public void Dispose() {
+            textureUVs.Dispose();
+        }
+
+        ~TextureAtlas() {
+            Dispose();
         }
     }
 }
