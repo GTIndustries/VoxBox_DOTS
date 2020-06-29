@@ -54,8 +54,17 @@ namespace VoxBox.Scripts {
         }
     }
 
+<<<<<<< Updated upstream
     public class TextureAtlas : MonoBehaviour {
         [SerializeField] private SpriteAtlas voxelSpriteAtlas = null;
+=======
+    public class TextureAtlas : MonoBehaviour, IDisposable {
+        [SerializeField] private SpriteAtlas _voxelAtlas = null;
+        [SerializeField] private Material _voxelMaterial = null;
+        public static SpriteAtlas voxelAtlas;
+        public static Material voxelMaterial;
+        [ReadOnly] [NativeDisableParallelForRestriction] public static NativeHashMap<int, UV> textureUVs;
+>>>>>>> Stashed changes
         
         public static            SpriteAtlas voxelAtlas;
         //[SerializeField] private Material _voxelMaterial;
@@ -85,17 +94,36 @@ namespace VoxBox.Scripts {
             {VoxelID.DIRT,      "Dirt"}, 
             {VoxelID.LOG,       "Oak Log"}
         };
+<<<<<<< Updated upstream
         private static readonly int BaseMap                = Shader.PropertyToID("_BaseMap");
         private static readonly int Smoothness             = Shader.PropertyToID("_Smoothness");
         private static readonly int ReceiveShadows         = Shader.PropertyToID("_ReceiveShadows");
         private static readonly int EnvironmentReflections = Shader.PropertyToID("_EnvironmentReflections");
+=======
+        
+        private static readonly int BaseMap    = Shader.PropertyToID("_BaseColorMap");
+        private static readonly int Smoothness = Shader.PropertyToID("_Smoothness");
+        private static readonly int Metallic   = Shader.PropertyToID("_Metallic");
+>>>>>>> Stashed changes
 
         private void Awake() {
-            voxelAtlas = voxelSpriteAtlas;
-            //voxelMaterial = _voxelMaterial;
+            voxelAtlas = _voxelAtlas;
+            var voxelTexture = voxelAtlas.GetSprite("debug").texture;
+            voxelMaterial = _voxelMaterial;
+            voxelMaterial.SetTexture(BaseMap, voxelTexture);
             //voxelMaterial.SetTexture("_BaseMap", voxelAtlas.GetSprite("debug").texture);
+<<<<<<< Updated upstream
             MaterialSetup();
+=======
+            //MaterialSetup();
+            Debug.Log("Materials obtained");
+        }
+
+        private void Start() {
+            textureUVs = new NativeHashMap<int, UV>(1, Allocator.Persistent);
+>>>>>>> Stashed changes
             PopulateTextureDict();
+            Debug.Log("Textures obtained");
         }
 
         private static void PopulateTextureDict() {
@@ -122,10 +150,14 @@ namespace VoxBox.Scripts {
             voxelMaterial           = new Material(voxelShader);
             voxelMaterial.SetTexture(BaseMap, voxelTexture);
             voxelMaterial.SetFloat(Smoothness, 0f);
+<<<<<<< Updated upstream
             voxelMaterial.SetFloat(ReceiveShadows, 1f);
             voxelMaterial.SetFloat(EnvironmentReflections, 1f);
             voxelMaterial.enableInstancing        = true;
             voxelMaterial.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
+=======
+            voxelMaterial.SetFloat(Metallic, 0.5f);
+>>>>>>> Stashed changes
             //voxelMaterial.mainTexture = voxelAtlas.GetSprite("debug").texture;
         }
     

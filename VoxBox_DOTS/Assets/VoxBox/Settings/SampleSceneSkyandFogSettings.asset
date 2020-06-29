@@ -33,9 +33,12 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0.46608552
     min: 0
+<<<<<<< Updated upstream
   upperHemisphereLuxColor:
     m_OverrideState: 0
     m_Value: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> Stashed changes
   desiredLuxValue:
     m_OverrideState: 0
     m_Value: 20000
@@ -52,6 +55,7 @@ MonoBehaviour:
   hdriSky:
     m_OverrideState: 1
     m_Value: {fileID: 8900000, guid: 54a3a0570aebe8949bec4966f1376581, type: 3}
+<<<<<<< Updated upstream
   enableBackplate:
     m_OverrideState: 0
     m_Value: 0
@@ -265,6 +269,8 @@ MonoBehaviour:
     m_Value: 0.3
     min: 0.001
     max: 0.5
+=======
+>>>>>>> Stashed changes
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,8 +287,11 @@ MonoBehaviour:
   - {fileID: 3912485203739470195}
   - {fileID: -1658960478407648048}
   - {fileID: 5321722785694334585}
+<<<<<<< Updated upstream
   - {fileID: -28216051275925322}
   - {fileID: -514599303954826938}
+=======
+>>>>>>> Stashed changes
 --- !u!114 &3912485203739470195
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -332,12 +341,15 @@ MonoBehaviour:
     hdr: 1
     showAlpha: 0
     showEyeDropper: 1
+<<<<<<< Updated upstream
   tint:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
     hdr: 1
     showAlpha: 0
     showEyeDropper: 1
+=======
+>>>>>>> Stashed changes
   maxFogDistance:
     m_OverrideState: 0
     m_Value: 5000
@@ -393,6 +405,9 @@ MonoBehaviour:
     m_Value: 0.75
     min: 0
     max: 1
+<<<<<<< Updated upstream
   filter:
     m_OverrideState: 0
     m_Value: 0
+=======
+>>>>>>> Stashed changes

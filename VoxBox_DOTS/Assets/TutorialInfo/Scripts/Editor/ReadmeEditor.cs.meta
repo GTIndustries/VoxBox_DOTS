@@ -1,7 +1,17 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
 guid: 476cc7d7cd9874016adc216baab94a0a
 timeCreated: 1484146680
 licenseType: Store
+=======
+<<<<<<< Updated upstream:VoxBox_DOTS/Assets/VoxBox/Scripts/Components/Buffers/VisibleFacesBufferElement.cs.meta
+guid: 0dbd8f8cc1c4d9944a092e17aaa26b7e
+=======
+guid: 476cc7d7cd9874016adc216baab94a0a
+timeCreated: 1484146680
+licenseType: Store
+>>>>>>> Stashed changes:VoxBox_DOTS/Assets/TutorialInfo/Scripts/Editor/ReadmeEditor.cs.meta
+>>>>>>> Stashed changes
 MonoImporter:
   serializedVersion: 2
   defaultReferences: []

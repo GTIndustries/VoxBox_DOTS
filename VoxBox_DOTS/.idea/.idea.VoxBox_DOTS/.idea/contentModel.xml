@@ -17,6 +17,7 @@
           <e p="Scripts" t="Include">
             <e p="Components" t="Include">
               <e p="Buffers" t="Include">
+<<<<<<< Updated upstream
                 <e p="EntityBufferElement.cs" t="Include" />
                 <e p="EntityBufferElementAuthoring.cs" t="Include" />
                 <e p="NeighborBufferElement.cs" t="Include" />
@@ -35,12 +36,42 @@
                 <e p="LoadTag.cs" t="Include" />
                 <e p="RenderTag.cs" t="Include" />
                 <e p="UpdateTag.cs" t="Include" />
+=======
+                <e p="ChunkBufferElements.cs" t="Include" />
+                <e p="EntityBufferElementAuthoring.cs" t="Include" />
+                <e p="MeshBufferElements.cs" t="Include" />
+                <e p="NeighborBufferElementAuthoring.cs" t="Include" />
+                <e p="NormalBufferElementAuthoring.cs" t="Include" />
+                <e p="TriangleBufferElementAuthoring.cs" t="Include" />
+                <e p="UVBufferElementAuthoring.cs" t="Include" />
+                <e p="VertexBufferElementAuthoring.cs" t="Include" />
+                <e p="VisibleFacesBufferElementAuthoring.cs" t="Include" />
+                <e p="VoxelBufferElementAuthoring.cs" t="Include" />
+              </e>
+              <e p="Components" t="Include">
+                <e p="ChunkMeshBufferElement.cs" t="Include" />
+                <e p="ChunkMeshBufferElementAuthoring.cs" t="Include" />
+              </e>
+              <e p="Tags" t="Include">
+                <e p="ChunkColliderTag.cs" t="Include" />
+                <e p="ChunkDataTags.cs" t="Include" />
+                <e p="ChunkMeshTag.cs" t="Include" />
+                <e p="ChunkTag.cs" t="Include" />
+                <e p="DisableSystemTag.cs" t="Include" />
+>>>>>>> Stashed changes
               </e>
             </e>
             <e p="GameManager.cs" t="Include" />
             <e p="GameWorld.cs" t="Include" />
+<<<<<<< Updated upstream
             <e p="SimpleCameraController.cs" t="Include" />
             <e p="Systems" t="Include">
+=======
+            <e p="NoAllocHelpers.cs" t="Include" />
+            <e p="SimpleCameraController.cs" t="Include" />
+            <e p="Systems" t="Include">
+              <e p="ChunkMeshingSystem.cs" t="Include" />
+>>>>>>> Stashed changes
               <e p="ChunkRenderingSystem.cs" t="Include" />
               <e p="GetVisibleFacesSystem.cs" t="Include" />
               <e p="TerrainGenerationSystem.cs" t="Include" />

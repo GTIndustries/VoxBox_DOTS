@@ -1,5 +1,6 @@
 {
   "dependencies": {
+<<<<<<< Updated upstream
     "com.havok.physics": {
       "version": "0.3.0-preview.1",
       "depth": 0,
@@ -14,6 +15,8 @@
       },
       "url": "https://packages.unity.com"
     },
+=======
+>>>>>>> Stashed changes
     "com.unity.burst": {
       "version": "1.3.0",
       "depth": 1,
@@ -119,6 +122,7 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+<<<<<<< Updated upstream
     "com.unity.physics": {
       "version": "0.4.0-preview.5",
       "depth": 1,
@@ -136,6 +140,8 @@
       },
       "url": "https://packages.unity.com"
     },
+=======
+>>>>>>> Stashed changes
     "com.unity.platforms": {
       "version": "0.3.0-preview.4",
       "depth": 1,
@@ -169,7 +175,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.render-pipelines.core": {
+<<<<<<< Updated upstream
       "version": "8.1.0",
+=======
+      "version": "9.0.0-preview.13",
+>>>>>>> Stashed changes
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -178,6 +188,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.render-pipelines.high-definition": {
+<<<<<<< Updated upstream
       "version": "8.1.0",
       "depth": 0,
       "source": "registry",
@@ -186,6 +197,16 @@
         "com.unity.shadergraph": "8.1.0",
         "com.unity.visualeffectgraph": "8.1.0",
         "com.unity.render-pipelines.high-definition-config": "8.1.0"
+=======
+      "version": "9.0.0-preview.13",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.render-pipelines.core": "9.0.0-preview.13",
+        "com.unity.shadergraph": "9.0.0-preview.14",
+        "com.unity.visualeffectgraph": "9.0.0-preview.13",
+        "com.unity.render-pipelines.high-definition-config": "9.0.0-preview.15"
+>>>>>>> Stashed changes
       },
       "url": "https://packages.unity.com"
     },
@@ -194,7 +215,11 @@
       "depth": 0,
       "source": "local",
       "dependencies": {
+<<<<<<< Updated upstream
         "com.unity.render-pipelines.core": "8.1.0"
+=======
+        "com.unity.render-pipelines.core": "9.0.0-preview.13"
+>>>>>>> Stashed changes
       }
     },
     "com.unity.rendering.hybrid": {
@@ -234,11 +259,19 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.shadergraph": {
+<<<<<<< Updated upstream
       "version": "8.1.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.render-pipelines.core": "8.1.0",
+=======
+      "version": "9.0.0-preview.14",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.render-pipelines.core": "9.0.0-preview.13",
+>>>>>>> Stashed changes
         "com.unity.searcher": "4.0.9"
       },
       "url": "https://packages.unity.com"
@@ -295,11 +328,19 @@
       }
     },
     "com.unity.visualeffectgraph": {
+<<<<<<< Updated upstream
       "version": "8.1.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.shadergraph": "8.1.0"
+=======
+      "version": "9.0.0-preview.13",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.shadergraph": "9.0.0-preview.14"
+>>>>>>> Stashed changes
       },
       "url": "https://packages.unity.com"
     },
