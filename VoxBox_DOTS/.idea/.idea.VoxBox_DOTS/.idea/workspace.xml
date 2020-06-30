@@ -1,105 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
-    <select />
-  </component>
   <component name="ChangeListManager">
-<<<<<<< Updated upstream
-    <list default="true" id="fc629a83-c28b-42df-bdd9-b8548b35149b" name="Default Changelist" comment="">
-=======
-    <list default="true" id="e4767b5a-d2ea-447b-9c05-6a02633c7b53" name="Default Changelist" comment="">
->>>>>>> Stashed changes
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.VoxBox_DOTS/.idea/.idea.VoxBox_DOTS.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.VoxBox_DOTS/.idea/contentModel.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.VoxBox_DOTS/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.VoxBox_DOTS/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VoxBox_DOTS/.idea/.gitignore" beforeDir="false" />
+    <list default="true" id="e20ad96d-0508-4a55-82f1-cef2dc1a8ffd" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.VoxBox_DOTS/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VoxBox_DOTS/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VoxBox_DOTS/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VoxBox_DOTS/.idea/indexLayout.xml" afterDir="false" />
-<<<<<<< Updated upstream
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.VoxBox_DOTS/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VoxBox_DOTS/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VoxBox_DOTS/riderModule.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VoxBox_DOTS/riderModule.iml" afterDir="false" />
-=======
->>>>>>> Stashed changes
-      <change beforePath="$PROJECT_DIR$/Assets/Defaults.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Defaults/Scripts.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Defaults/Scripts/SimpleCameraController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Defaults/Scripts/SimpleCameraController.cs.meta" beforeDir="false" />
-<<<<<<< Updated upstream
-=======
-      <change beforePath="$PROJECT_DIR$/Assets/InputSystem.inputsettings.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/InputSystem.inputsettings.asset.meta" beforeDir="false" />
->>>>>>> Stashed changes
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/ConstructionLight_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/ConstructionLight_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/DryWallPainted_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/DryWallPainted_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/DryWall_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/DryWall_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Ground_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Ground_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Hammer_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Hammer_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/HardHat_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/HardHat_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Jigsaw_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Jigsaw_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/LightBulb_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/LightBulb_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Liquid_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Liquid_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Metal_Blue_Simple_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Metal_Blue_Simple_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Metal_Simple_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Metal_Simple_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/OBS_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/OBS_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/PaintBrush_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/PaintBrush_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/PaintCan_mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/PaintCan_mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/PaintLabel_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/PaintLabel_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Black_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Black_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Gray_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Gray_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Ridges_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Ridges_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Rough_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Rough_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Transparent.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Transparent.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_White_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_White_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Yellow_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Yellow_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Strap_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Strap_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Stud_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Stud_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HDRPDefaultResources/DXR.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HDRPDefaultResources/DXR/DXR Settings.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HDRPDefaultResources/DXR/DXR Settings.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HDRPDefaultResources/DXR/DefaultSceneRoot.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HDRPDefaultResources/DXR/DefaultSceneRoot.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HDRPDefaultResources/DXR/Sky and Fog Settings Profile.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HDRPDefaultResources/DXR/Sky and Fog Settings Profile.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HDRPDefaultResources/DefaultSceneRoot.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HDRPDefaultResources/DefaultSceneRoot.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HDRPDefaultResources/DefaultSceneRoot.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HDRPDefaultResources/DefaultSceneRoot.prefab.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HDRPDefaultResources/Foliage Diffusion Profile.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HDRPDefaultResources/Foliage Diffusion Profile.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HDRPDefaultResources/HDRenderPipelineAsset.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HDRPDefaultResources/HDRenderPipelineAsset.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HDRPDefaultResources/Skin Diffusion Profile.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HDRPDefaultResources/Skin Diffusion Profile.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HDRPDefaultResources/Sky and Fog Settings Profile.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HDRPDefaultResources/Sky and Fog Settings Profile.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HDRPDefaultResources/Sky and Fog Settings Profile.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HDRPDefaultResources/Sky and Fog Settings Profile.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TutorialInfo/Scripts/Editor/ReadmeEditor.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TutorialInfo/Scripts/Editor/ReadmeEditor.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Examples.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Examples/Rotate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Examples/Rotate.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Examples/RotateAuthoring.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Examples/RotateAuthoring.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Examples/RotateSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Examples/RotateSystem.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Materials.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Materials.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Materials/Material_Voxel.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Materials/Material_Voxel.mat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Prefabs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Prefabs.meta" afterDir="false" />
-<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Prefabs/Chunk.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Prefabs/Chunk.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Prefabs/ChunkMesh.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Prefabs/ChunkMesh.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Resources.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Resources.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Resources/VoxelAtlas.spriteatlas" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Resources/VoxelAtlas.spriteatlas.meta" beforeDir="false" />
-=======
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Resources.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Resources.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Resources/UI/cursor_small.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Resources/UI/cursor_small.png" afterDir="false" />
->>>>>>> Stashed changes
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scenes.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scenes.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scenes/Scene_Main.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scenes/Scene_Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scenes/Scene_Main.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scenes/Scene_Main.unity.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scenes/Scene_Main.unity.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scenes/Scene_Main/LightingData.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scenes/Scene_Main/LightingData.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scenes/Scene_Main/ReflectionProbe-0.exr" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scenes/Scene_Main/ReflectionProbe-0.exr.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scenes/Scene_Main/SubScene_Main.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scenes/Scene_Main/SubScene_Main.unity.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts.meta" afterDir="false" />
-<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/EntityBufferElement.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/EntityBufferElement.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/EntityBufferElement.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/EntityBufferElement.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/EntityBufferElementAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/EntityBufferElementAuthoring.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/EntityBufferElementAuthoring.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/EntityBufferElementAuthoring.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/NeighborBufferElement.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/NeighborBufferElement.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/NeighborBufferElement.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/NeighborBufferElement.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/NeighborBufferElementAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/NeighborBufferElementAuthoring.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/NeighborBufferElementAuthoring.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/NeighborBufferElementAuthoring.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/VisibleFacesBufferElement.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/VisibleFacesBufferElement.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/VisibleFacesBufferElement.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/VisibleFacesBufferElement.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/VisibleFacesBufferElementAuthoring.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/VisibleFacesBufferElementAuthoring.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/VoxelBufferElement.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/VoxelBufferElement.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/VoxelBufferElement.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/VoxelBufferElement.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/VoxelBufferElementAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/VoxelBufferElementAuthoring.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/VoxelBufferElementAuthoring.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Buffers/VoxelBufferElementAuthoring.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Components.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Components.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Components.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/ChunkCollTag.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/ChunkCollTag.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/ChunkCollTag.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/ChunkCollTag.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/ChunkMeshTag.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/ChunkMeshTag.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/ChunkTag.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/ChunkTag.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/FacesTag.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/FacesTag.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/GenerateTerrainTag.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/GenerateTerrainTag.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/LoadTag.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/LoadTag.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/RenderTag.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/RenderTag.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/UpdateTag.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/UpdateTag.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/FacesTag.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/FacesTag.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/GenerateTerrainTag.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/GenerateTerrainTag.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/LoadTag.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/LoadTag.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/RenderTag.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/RenderTag.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/UpdateTag.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Components/Tags/UpdateTag.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/GameManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/GameManager.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/GameWorld.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/GameWorld.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/GameWorld.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/GameWorld.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/SimpleCameraController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/SimpleCameraController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Systems.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Systems.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Systems/ChunkRenderingSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Systems/ChunkRenderingSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Systems/ChunkRenderingSystem.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Systems/ChunkRenderingSystem.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Systems/GetVisibleFacesSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Systems/GetVisibleFacesSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Systems/GetVisibleFacesSystem.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/Systems/GetVisibleFacesSystem.cs.meta" afterDir="false" />
@@ -114,48 +113,40 @@
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/VoxelTypes/VoxelDirt.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/VoxelTypes/VoxelDirt.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/VoxelTypes/VoxelGrass.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/VoxelTypes/VoxelGrass.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/VoxelTypes/VoxelLogo.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/VoxelTypes/VoxelLogo.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/VoxelTypes/VoxelStone.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/VoxelTypes/VoxelStone.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/VoxelTypes/VoxelStone.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/VoxelTypes/VoxelStone.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Settings.meta" beforeDir="false" />
-=======
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Scripts/TextureAtlas.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Scripts/TextureAtlas.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Settings.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Settings.meta" afterDir="false" />
->>>>>>> Stashed changes
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Settings/Lighting Settings.lighting" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Settings/Lighting Settings.lighting.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Settings/HDRenderPipelineAsset.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Settings/HDRenderPipelineAsset.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Settings/InputSystem.inputsettings.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Settings/InputSystem.inputsettings.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/VoxBox/Settings/SampleSceneSkyandFogSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VoxBox/Settings/SampleSceneSkyandFogSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/CHANGELOG.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/CHANGELOG.md.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/LICENSE.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/LICENSE.md.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/Runtime.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/Runtime/ShaderConfig.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/Runtime/ShaderConfig.cs.hlsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/Runtime/ShaderConfig.cs.hlsl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/Runtime/ShaderConfig.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/Runtime/Unity.RenderPipelines.HighDefinition.Config.Runtime.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/Runtime/Unity.RenderPipelines.HighDefinition.Config.Runtime.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/Tests.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/Tests/.tests.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/Tests/Editor.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/Tests/Editor/ConfigurationTest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/Tests/Editor/ConfigurationTest.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/Tests/Editor/Unity.RenderPipelines.HighDefinitionConfig.Editor.Tests.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/Tests/Editor/Unity.RenderPipelines.HighDefinitionConfig.Editor.Tests.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LocalPackages/com.unity.render-pipelines.high-definition-config/package.json.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/AudioManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/AudioManager.asset" afterDir="false" />
-<<<<<<< Updated upstream
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ClusterInputManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ClusterInputManager.asset" afterDir="false" />
-=======
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/BurstAotSettings_StandaloneWindows.json" beforeDir="false" />
->>>>>>> Stashed changes
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/InputManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/InputManager.asset" afterDir="false" />
-<<<<<<< Updated upstream
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/NavMeshAreas.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/NavMeshAreas.asset" afterDir="false" />
-=======
->>>>>>> Stashed changes
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/Physics2DSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Physics2DSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/PresetManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/PresetManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/HDRPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/HDRPProjectSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
-<<<<<<< Updated upstream
-=======
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/SceneTemplateSettings.json" beforeDir="false" />
->>>>>>> Stashed changes
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TimeManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TimeManager.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/UnityConnectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/UnityConnectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/VFXManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/VFXManager.asset" afterDir="false" />
-<<<<<<< Updated upstream
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/XRSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/XRSettings.asset" afterDir="false" />
-=======
->>>>>>> Stashed changes
       <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -167,37 +158,23 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-<<<<<<< Updated upstream
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.high-definition@8.1.0/Editor/RenderPipeline/Camera/HDCameraEditor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/VoxBox/Scripts/GameWorld.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../VoxBox_DOTS_Backup/VoxBox_DOTS_old/Assets/Defaults/Scripts/SimpleCameraController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/VoxBox/Scripts/SimpleCameraController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../../VoxBox_DOTS_Old/Assets/Defaults/Scripts/SimpleCameraController.cs" root0="SKIP_HIGHLIGHTING" />
-=======
-    <setting file="file://$PROJECT_DIR$/Assets/VoxBox/Scripts/GameWorld.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/VoxBox/Scripts/TextureAtlas.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.high-definition@9.0.0-preview.13/Runtime/Sky/StaticLightingSky.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/VoxBox/Scripts/SimpleCameraController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.high-definition@9.0.0-preview.13/Runtime/Material/Lit/Lit.shader" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/VoxBox/Scripts/Systems/ChunkMeshingSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/VoxBox/Scripts/Systems/TerrainGenerationSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/VoxBox/Scripts/Systems/GetVisibleFacesSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/VoxBox/Scripts/Systems/ChunkRenderingSystem.cs" root0="FORCE_HIGHLIGHTING" />
->>>>>>> Stashed changes
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/VoxBox/Scripts/SimpleCameraController.cs" />
         <option value="$PROJECT_DIR$/Assets/VoxBox/Scripts/GameWorld.cs" />
-<<<<<<< Updated upstream
       </list>
     </option>
   </component>
-  <component name="ProjectId" id="1dsTkHSCNZdFDWHLX8MxzHHnj7N" />
-=======
-        <option value="$PROJECT_DIR$/Assets/VoxBox/Scripts/TextureAtlas.cs" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectId" id="1e0UUYXJPZ2frhFYgS1VyruUsqs" />
->>>>>>> Stashed changes
+  <component name="ProjectId" id="1e156nYG0IAswfGt3o4DVDtuA94" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -207,17 +184,13 @@
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-<<<<<<< Updated upstream
-=======
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
->>>>>>> Stashed changes
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
@@ -238,21 +211,12 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-<<<<<<< Updated upstream
-      <changelist id="fc629a83-c28b-42df-bdd9-b8548b35149b" name="Default Changelist" comment="" />
-      <created>1593212942662</created>
+      <changelist id="e20ad96d-0508-4a55-82f1-cef2dc1a8ffd" name="Default Changelist" comment="" />
+      <created>1593476086148</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1593212942662</updated>
-      <workItem from="1593212964652" duration="745000" />
-=======
-      <changelist id="e4767b5a-d2ea-447b-9c05-6a02633c7b53" name="Default Changelist" comment="" />
-      <created>1593458019956</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1593458019956</updated>
-      <workItem from="1593458024727" duration="2021000" />
->>>>>>> Stashed changes
+      <updated>1593476086148</updated>
+      <workItem from="1593476091772" duration="2550000" />
     </task>
     <servers />
   </component>
@@ -261,17 +225,6 @@
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>

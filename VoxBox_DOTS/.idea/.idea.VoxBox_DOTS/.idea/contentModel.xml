@@ -17,26 +17,6 @@
           <e p="Scripts" t="Include">
             <e p="Components" t="Include">
               <e p="Buffers" t="Include">
-<<<<<<< Updated upstream
-                <e p="EntityBufferElement.cs" t="Include" />
-                <e p="EntityBufferElementAuthoring.cs" t="Include" />
-                <e p="NeighborBufferElement.cs" t="Include" />
-                <e p="NeighborBufferElementAuthoring.cs" t="Include" />
-                <e p="VisibleFacesBufferElement.cs" t="Include" />
-                <e p="VisibleFacesBufferElementAuthoring.cs" t="Include" />
-                <e p="VoxelBufferElement.cs" t="Include" />
-                <e p="VoxelBufferElementAuthoring.cs" t="Include" />
-              </e>
-              <e p="Tags" t="Include">
-                <e p="ChunkCollTag.cs" t="Include" />
-                <e p="ChunkMeshTag.cs" t="Include" />
-                <e p="ChunkTag.cs" t="Include" />
-                <e p="FacesTag.cs" t="Include" />
-                <e p="GenerateTerrainTag.cs" t="Include" />
-                <e p="LoadTag.cs" t="Include" />
-                <e p="RenderTag.cs" t="Include" />
-                <e p="UpdateTag.cs" t="Include" />
-=======
                 <e p="ChunkBufferElements.cs" t="Include" />
                 <e p="EntityBufferElementAuthoring.cs" t="Include" />
                 <e p="MeshBufferElements.cs" t="Include" />
@@ -58,20 +38,14 @@
                 <e p="ChunkMeshTag.cs" t="Include" />
                 <e p="ChunkTag.cs" t="Include" />
                 <e p="DisableSystemTag.cs" t="Include" />
->>>>>>> Stashed changes
               </e>
             </e>
             <e p="GameManager.cs" t="Include" />
             <e p="GameWorld.cs" t="Include" />
-<<<<<<< Updated upstream
-            <e p="SimpleCameraController.cs" t="Include" />
-            <e p="Systems" t="Include">
-=======
             <e p="NoAllocHelpers.cs" t="Include" />
             <e p="SimpleCameraController.cs" t="Include" />
             <e p="Systems" t="Include">
               <e p="ChunkMeshingSystem.cs" t="Include" />
->>>>>>> Stashed changes
               <e p="ChunkRenderingSystem.cs" t="Include" />
               <e p="GetVisibleFacesSystem.cs" t="Include" />
               <e p="TerrainGenerationSystem.cs" t="Include" />
@@ -89,19 +63,9 @@
           </e>
         </e>
       </e>
-      <e p="LocalPackages" t="Include">
-        <e p="com.unity.render-pipelines.high-definition-config" t="Include">
-          <e p="Runtime" t="Include">
-            <e p="ShaderConfig.cs" t="Include" />
-            <e p="ShaderConfig.cs.hlsl" t="Include" />
-            <e p="Unity.RenderPipelines.HighDefinition.Config.Runtime.asmdef" t="Include" />
-          </e>
-        </e>
-      </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
       <e p="Temp\Bin" t="ExcludeRecursive" />
-      <e p="Unity.RenderPipelines.HighDefinition.Config.Runtime.csproj" t="IncludeRecursive" />
       <e p="VoxBox_DOTS.sln" t="IncludeFlat" />
     </e>
     <e p="C:\Users\galex\AppData\Local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />

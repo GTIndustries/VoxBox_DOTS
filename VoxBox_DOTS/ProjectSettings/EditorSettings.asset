@@ -9,7 +9,7 @@ EditorSettings:
   m_DefaultBehaviorMode: 0
   m_PrefabRegularEnvironment: {fileID: 0}
   m_PrefabUIEnvironment: {fileID: 0}
-  m_SpritePackerMode: 0
+  m_SpritePackerMode: 4
   m_SpritePackerPaddingPower: 1
   m_EtcTextureCompressorBehavior: 0
   m_EtcTextureFastCompressor: 2
@@ -19,10 +19,14 @@ EditorSettings:
   m_ProjectGenerationRootNamespace: 
   m_EnableTextureStreamingInEditMode: 1
   m_EnableTextureStreamingInPlayMode: 1
+  m_EnableRoslynAnalyzers: 0
   m_AsyncShaderCompilation: 1
   m_CachingShaderPreprocessor: 0
   m_EnterPlayModeOptionsEnabled: 0
   m_EnterPlayModeOptions: 3
+  m_GameObjectNamingDigits: 1
+  m_GameObjectNamingScheme: 0
+  m_AssetNamingUsesSpace: 1
   m_UseLegacyProbeSampleCount: 0
   m_SerializeInlineMappingsOnOneLine: 1
   m_DisableCookiesInLightmapper: 0

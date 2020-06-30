@@ -1,5 +1,7 @@
-﻿using Unity.Entities;
+﻿using System.Collections;
+using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Rendering;
 using Unity.Transforms;
 using UnityEngine;
 using VoxBox.Scripts.Components.Buffers;
@@ -18,8 +20,10 @@ namespace VoxBox.Scripts {
                          private       World         _defaultWorld;
                          private       EntityManager _entityManager;
 
-        private void Start() {
+        private IEnumerator Start() {
             Debug.Log("GameWorld::Start: Beginning Setup...");
+            //yield return null;
+            
             _defaultWorld  = World.DefaultGameObjectInjectionWorld;
             _entityManager = _defaultWorld.EntityManager;
 
@@ -30,11 +34,17 @@ namespace VoxBox.Scripts {
                 _chunkMeshEntityPrefab =
                     GameObjectConversionUtility.ConvertGameObjectHierarchy(chunkMeshGameObjectPrefab, conversionSettings);
             }
+            
             Debug.Log("GameWorld::Start: Setup complete!");
+            //yield return null;
             
             Debug.Log("GameWorld::Start: Creating world...");
+            //yield return null;
+            
             CreateWorld();
+            
             Debug.Log("GameWorld::Start: World done!");
+            yield return null;
         }
 
         private void CreateWorld() {
@@ -46,14 +56,13 @@ namespace VoxBox.Scripts {
                         // CreateChunk(new int3(x, y, z));
                         
                         // only generate chunk if it is within the sphere of vision
-                        if (Vector3.Distance(
-                                new Vector3(0, 0, 0),
-                                new Vector3(x, y, z)
-                            )
-                          < ChunkSize * 0.5) {
-                            CreateChunk(new int3(x * ChunkSize, 
-                                                 y * ChunkSize, 
-                                                 z * ChunkSize));
+                        var centerPosition = new Vector3(0, 0, 0);
+                        if (Vector3.Distance(centerPosition,new Vector3(x, y, z)) < viewDistanceHorizontal
+                        && Vector3.Distance(centerPosition,new Vector3(x, y, z)) < viewDistanceVertical){
+                            CreateChunk(new int3(
+                                            x * ChunkSize, 
+                                            y * ChunkSize, 
+                                            z * ChunkSize));
                             ++chunkCount;
                         }
                     }
@@ -73,12 +82,24 @@ namespace VoxBox.Scripts {
             });
             // TODO: Create system to find serialized chunk data and only regen chunk if not saved
             _entityManager.AddComponentData(newChunk, new GenerateTerrainTag());
+            var renderMesh = _entityManager.GetSharedComponentData<RenderMesh>(newChunk);
+            _entityManager.SetSharedComponentData(newChunk, new RenderMesh {
+                mesh = renderMesh.mesh,
+                material = TextureAtlas.voxelMaterial,
+                layer = renderMesh.layer,
+                castShadows = renderMesh.castShadows,
+                receiveShadows = renderMesh.receiveShadows,
+                subMesh = renderMesh.subMesh,
+                needMotionVectorPass = renderMesh.needMotionVectorPass
+            });
             
                // Instantiate Chunk mesh entity
 //             var newChunkMesh = _entityManager.Instantiate(_chunkMeshEntityPrefab);
 // #if DEBUG
 //             _entityManager.SetName(newChunkMesh, $"ChunkMesh_{worldPosition.x}_{worldPosition.y}_{worldPosition.z}");
-// #endif
+// #endif    new RenderMesh() {
+//             mesh = mesh, material = TextureAtlas.voxelMaterial
+//         }
 //             //_entityManager.SetSharedComponentData(newChunkMesh, new RenderMesh());
 //             _entityManager.SetComponentData(newChunkMesh, new Translation {
 //                 Value = worldPosition
