@@ -11,10 +11,10 @@ using VoxBox.Scripts.Components.Buffers;
 using VoxBox.Scripts.Components.Tags;
 
 namespace VoxBox.Scripts.Systems {
-    internal static class CustomForEach {
+    internal static partial class CustomForEach {
         // Declare the delegate that takes 12 parameters. T0 is used for the Entity argument
         [Unity.Entities.CodeGeneratedJobForEach.EntitiesForEachCompatible]
-        public delegate void CustomForEachDelegate<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+        public delegate void CustomForEachDelegate1<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
             T0     t0,
             T1     t1,
             ref T2 t2,
@@ -30,7 +30,7 @@ namespace VoxBox.Scripts.Systems {
         // Declare the function overload
         public static TDescription ForEach<TDescription, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
             this TDescription                                             description,
-            CustomForEachDelegate<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> codeToRun
+            CustomForEachDelegate1<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> codeToRun
         )
             where TDescription : struct, Unity.Entities.CodeGeneratedJobForEach.ISupportForEachWithUniversalDelegate =>
             LambdaForEachDescriptionConstructionMethods.ThrowCodeGenException<TDescription>();
@@ -77,6 +77,7 @@ namespace VoxBox.Scripts.Systems {
 
                 Entities.WithAll<ChunkTag, UpdateChunkTag, CreateMeshChunkTag>()
                         .WithReadOnly(textureUVs)
+                        .WithDeallocateOnJobCompletion(textureUVs)
                         .ForEach(
                              (
                                  Entity                                       e,
@@ -190,14 +191,10 @@ namespace VoxBox.Scripts.Systems {
 
                                  // Set done with meshing and updating
                                  //ecb.RemoveComponent<UpdateChunkTag>(entityInQueryIndex, e);
-                                 ecb.RemoveComponent<CreateMeshChunkTag>(
-                                     entityInQueryIndex,
-                                     e
-                                 );
+                                 ecb.RemoveComponent<CreateMeshChunkTag>(entityInQueryIndex, e);
                                  ecb.AddComponent<RenderChunkTag>(entityInQueryIndex, e);
                              }
                          )
-                        .WithDeallocateOnJobCompletion(textureUVs)
                         .ScheduleParallel();
 
                 // temp1.Dispose();
