@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
@@ -35,140 +36,10 @@ namespace VoxBox.Scripts.Systems {
             LambdaForEachDescriptionConstructionMethods.ThrowCodeGenException<TDescription>();
     }
 
-    public struct CubeModel : IDisposable {
-        public NativeArray<Vector3> Vertices;
-        public NativeArray<Vector3> Normals;
-        public NativeArray<Vector2> Uvs;
-        public NativeArray<int>     Indices;
-
-        public static CubeModel Create() {
-            return new CubeModel {
-                Vertices = new NativeArray<Vector3>(
-                    new[] {
-                        new Vector3(0f, 0f, 0f),
-                        new Vector3(0f, 1f, 1f),
-                        new Vector3(0f, 1f, 0f),
-                        new Vector3(0f, 0f, 1f),
-                        new Vector3(1f, 0f, 0f),
-                        new Vector3(1f, 1f, 1f),
-                        new Vector3(1f, 1f, 0f),
-                        new Vector3(1f, 0f, 1f),
-                        new Vector3(0f, 1f, 0f),
-                        new Vector3(0f, 1f, 1f),
-                        new Vector3(1f, 1f, 0f),
-                        new Vector3(1f, 1f, 1f),
-                        new Vector3(0f, 0f, 0f),
-                        new Vector3(0f, 0f, 1f),
-                        new Vector3(1f, 0f, 0f),
-                        new Vector3(1f, 0f, 1f),
-                        new Vector3(0f, 0f, 0f),
-                        new Vector3(0f, 1f, 0f),
-                        new Vector3(1f, 1f, 0f),
-                        new Vector3(1f, 0f, 0f),
-                        new Vector3(0f, 0f, 1f),
-                        new Vector3(0f, 1f, 1f),
-                        new Vector3(1f, 1f, 1f),
-                        new Vector3(1f, 0f, 1f)
-                    },
-                    Allocator.Persistent
-                ),
-                Normals = new NativeArray<Vector3>(
-                    new[] {
-                        new Vector3(-1, 0, 0),
-                        new Vector3(+1, 0, 0),
-                        new Vector3(0, +1, 0),
-                        new Vector3(0, -1, 0),
-                        new Vector3(0, 0, -1),
-                        new Vector3(0, 0, +1)
-                    },
-                    Allocator.Persistent
-                ),
-                Uvs = new NativeArray<Vector2>(
-                    new[] {
-                        new Vector2(1f, 0f),
-                        new Vector2(0f, 1f),
-                        new Vector2(1f, 1f),
-                        new Vector2(0f, 0f),
-                        new Vector2(0f, 0f),
-                        new Vector2(1f, 1f),
-                        new Vector2(0f, 1f),
-                        new Vector2(1f, 0f),
-                        new Vector2(0f, 0f),
-                        new Vector2(0f, 1f),
-                        new Vector2(1f, 0f),
-                        new Vector2(1f, 1f),
-                        new Vector2(0f, 0f),
-                        new Vector2(0f, 1f),
-                        new Vector2(1f, 0f),
-                        new Vector2(1f, 1f),
-                        new Vector2(0f, 0f),
-                        new Vector2(0f, 1f),
-                        new Vector2(1f, 1f),
-                        new Vector2(1f, 0f),
-                        new Vector2(1f, 0f),
-                        new Vector2(1f, 1f),
-                        new Vector2(0f, 1f),
-                        new Vector2(0f, 0f)
-                    },
-                    Allocator.Persistent
-                ),
-                Indices = new NativeArray<int>(
-                    new[] {
-                        0,
-                        1,
-                        2,
-                        0,
-                        3,
-                        1, // left -
-                        0,
-                        1,
-                        3,
-                        0,
-                        2,
-                        1, // right +
-                        0,
-                        3,
-                        2,
-                        0,
-                        1,
-                        3, // top +
-                        0,
-                        3,
-                        1,
-                        0,
-                        2,
-                        3, // bottom -
-                        0,
-                        2,
-                        3,
-                        0,
-                        1,
-                        2, // front +
-                        0,
-                        2,
-                        1,
-                        0,
-                        3,
-                        2 // back -
-                    },
-                    Allocator.Persistent
-                )
-            };
-        }
-
-        public void Dispose() {
-            Vertices.Dispose();
-            Normals.Dispose();
-            Uvs.Dispose();
-            Indices.Dispose();
-        }
-    }
-
     public class ChunkMeshingSystem : SystemBase, IDisposable {
         private        World                                  _defaultWorld;
         private        EntityManager                          _entityManager;
-        private static EndSimulationEntityCommandBufferSystem _commandsBuffer;
-
+        private static EndSimulationEntityCommandBufferSystem _commandsBuffer;           
 
         private const int ChunkSize = GameWorld.ChunkSize;
         // private readonly List<Vector3> verticesList  = new List<Vector3>();
@@ -186,229 +57,155 @@ namespace VoxBox.Scripts.Systems {
         }
 
         protected override void OnUpdate() {
-            // var group = GetEntityQuery(
-            //     ComponentType.ReadOnly<ChunkTag>(),
-            //     ComponentType.ReadOnly<UpdateChunkTag>(),
-            //     ComponentType.ReadOnly<CreateMeshChunkTag>()
-            // );
+            var group = GetEntityQuery(
+                ComponentType.ReadOnly<ChunkTag>(),
+                ComponentType.ReadOnly<UpdateChunkTag>(),
+                ComponentType.ReadOnly<CreateMeshChunkTag>()
+            );
+            var ecb = _commandsBuffer.CreateCommandBuffer().ToConcurrent();
 
-            var ecb        = _commandsBuffer.CreateCommandBuffer().ToConcurrent();
-            var ecb2       = _commandsBuffer.CreateCommandBuffer();
-            var textureUVs = TextureAtlas.textureUVs;//new NativeHashMap<int, UV>(TextureAtlas.textureUVs.Capacity, Allocator.TempJob);
+            if (group.CalculateEntityCount() != 0) {
+                var textureUVs = new NativeArray<UV>(TextureAtlas.textureUVs.Count, Allocator.TempJob);
+                textureUVs.CopyFrom(TextureAtlas.textureUVs.Values.ToArray());
+                
+                // var temp1 = TextureAtlas.textureUVs.Keys.ToArray();
+                // var temp2 = TextureAtlas.textureUVs.Values.ToArray();
+                
+                // for (var i = 0; i < TextureAtlas.textureUVs.Count(); ++i) {
+                //     if (!textureUVs.TryAdd(temp1[i], temp2[i])) Debug.Log("Texture failed to acquire");
+                // }
 
-            // if (group.CalculateEntityCount() != 0) {
-            //     var temp1 = TextureAtlas.textureUVs.GetKeyArray(Allocator.Temp);
-            //     var temp2 = TextureAtlas.textureUVs.GetValueArray(Allocator.Temp);
-            //
-            //     for (var i = 0; i < TextureAtlas.textureUVs.Count(); ++i) {
-            //         if (!textureUVs.TryAdd(temp1[i], temp2[i])) 
-            //             Debug.Log("Texture failed to acquire");
-            //     }
-            //
-            //     temp1.Dispose();
-            //     temp2.Dispose();
-            // }
+                Entities.WithAll<ChunkTag, UpdateChunkTag, CreateMeshChunkTag>()
+                        .WithReadOnly(textureUVs)
+                        .ForEach(
+                             (
+                                 Entity                                       e,
+                                 int                                          entityInQueryIndex,
+                                 ref DynamicBuffer<VoxelBufferElement>        voxelBuffer,
+                                 ref DynamicBuffer<VertexBufferElement>       vertexBuffer,
+                                 ref DynamicBuffer<NormalBufferElement>       normalBuffer,
+                                 ref DynamicBuffer<UVBufferElement>           uvBuffer,
+                                 ref DynamicBuffer<TriangleBufferElement>     triangleBuffer,
+                                 ref DynamicBuffer<VisibleFacesBufferElement> visibleFacesBuffer
+                             ) => {
+                                 vertexBuffer.Clear();
+                                 normalBuffer.Clear();
+                                 uvBuffer.Clear();
+                                 triangleBuffer.Clear();
 
+                                 // calculate chunk mesh
+                                 for (var y = 0; y < ChunkSize; ++y) {
+                                     for (var x = 0; x < ChunkSize; ++x) {
+                                         for (var z = 0; z < ChunkSize; ++z) {
+                                             var index = GetIndex(x, y, z);
+                                             var voxel = voxelBuffer[index];
+                                             //Debug.Log($"Voxel: {voxel.value}");
+                                             if (voxel == VoxelID.AIR) continue;
 
-            Entities.WithAll<ChunkTag, UpdateChunkTag, CreateMeshChunkTag>()
-                    .WithReadOnly(textureUVs)
-                    .ForEach(
-                         (
-                             Entity                                       e,
-                             int                                          entityInQueryIndex,
-                             ref DynamicBuffer<VoxelBufferElement>        voxelBuffer,
-                             ref DynamicBuffer<VertexBufferElement>       vertexBuffer,
-                             ref DynamicBuffer<NormalBufferElement>       normalBuffer,
-                             ref DynamicBuffer<UVBufferElement>           uvBuffer,
-                             ref DynamicBuffer<TriangleBufferElement>     triangleBuffer,
-                             ref DynamicBuffer<VisibleFacesBufferElement> visibleFacesBuffer
-                         ) => {
-                             vertexBuffer.Clear();
-                             normalBuffer.Clear();
-                             uvBuffer.Clear();
-                             triangleBuffer.Clear();
+                                             // TODO: Calculate mesh
+                                             var faceBuffer = visibleFacesBuffer[index];
+                                             // for (var i = 0; i < 6; ++i)
+                                             //    Debug.Log($"{(Direction)i}: {faceBuffer[i]}");
 
-                             // calculate chunk mesh
-                             for (var y = 0; y < ChunkSize; ++y) {
-                                 for (var x = 0; x < ChunkSize; ++x) {
-                                     for (var z = 0; z < ChunkSize; ++z) {
-                                         var index = GetIndex(x, y, z);
-                                         var voxel = voxelBuffer[index];
-                                         //Debug.Log($"Voxel: {voxel.value}");
-                                         if (voxel == VoxelID.AIR) continue;
+                                             if (faceBuffer[0] != TextureID.AIR) {
+                                                 FaceDataNorth(
+                                                     x,
+                                                     y,
+                                                     z,
+                                                     voxel,
+                                                     ref vertexBuffer,
+                                                     ref triangleBuffer,
+                                                     ref uvBuffer,
+                                                     textureUVs
+                                                 );
+                                             }
 
-                                         // TODO: Calculate mesh
-                                         var faceBuffer = visibleFacesBuffer[index];
-                                         // for (var i = 0; i < 6; ++i)
-                                         //    Debug.Log($"{(Direction)i}: {faceBuffer[i]}");
+                                             if (faceBuffer[1] != TextureID.AIR) {
+                                                 FaceDataEast(
+                                                     x,
+                                                     y,
+                                                     z,
+                                                     voxel,
+                                                     ref vertexBuffer,
+                                                     ref triangleBuffer,
+                                                     ref uvBuffer,
+                                                     textureUVs
+                                                 );
+                                             }
 
-                                         if (faceBuffer[0] != TextureID.AIR) {
-                                             FaceDataNorth(
-                                                 x,
-                                                 y,
-                                                 z,
-                                                 voxel,
-                                                 ref vertexBuffer,
-                                                 ref triangleBuffer,
-                                                 ref uvBuffer,
-                                                 textureUVs
-                                             );
-                                         }
+                                             if (faceBuffer[2] != TextureID.AIR) {
+                                                 FaceDataSouth(
+                                                     x,
+                                                     y,
+                                                     z,
+                                                     voxel,
+                                                     ref vertexBuffer,
+                                                     ref triangleBuffer,
+                                                     ref uvBuffer,
+                                                     textureUVs
+                                                 );
+                                             }
 
-                                         if (faceBuffer[1] != TextureID.AIR) {
-                                             FaceDataEast(
-                                                 x,
-                                                 y,
-                                                 z,
-                                                 voxel,
-                                                 ref vertexBuffer,
-                                                 ref triangleBuffer,
-                                                 ref uvBuffer,
-                                                 textureUVs
-                                             );
-                                         }
+                                             if (faceBuffer[3] != TextureID.AIR) {
+                                                 FaceDataWest(
+                                                     x,
+                                                     y,
+                                                     z,
+                                                     voxel,
+                                                     ref vertexBuffer,
+                                                     ref triangleBuffer,
+                                                     ref uvBuffer,
+                                                     textureUVs
+                                                 );
+                                             }
 
-                                         if (faceBuffer[2] != TextureID.AIR) {
-                                             FaceDataSouth(
-                                                 x,
-                                                 y,
-                                                 z,
-                                                 voxel,
-                                                 ref vertexBuffer,
-                                                 ref triangleBuffer,
-                                                 ref uvBuffer,
-                                                 textureUVs
-                                             );
-                                         }
+                                             if (faceBuffer[4] != TextureID.AIR) {
+                                                 FaceDataUp(
+                                                     x,
+                                                     y,
+                                                     z,
+                                                     voxel,
+                                                     ref vertexBuffer,
+                                                     ref triangleBuffer,
+                                                     ref uvBuffer,
+                                                     textureUVs
+                                                 );
+                                             }
 
-                                         if (faceBuffer[3] != TextureID.AIR) {
-                                             FaceDataWest(
-                                                 x,
-                                                 y,
-                                                 z,
-                                                 voxel,
-                                                 ref vertexBuffer,
-                                                 ref triangleBuffer,
-                                                 ref uvBuffer,
-                                                 textureUVs
-                                             );
-                                         }
-
-                                         if (faceBuffer[4] != TextureID.AIR) {
-                                             FaceDataUp(
-                                                 x,
-                                                 y,
-                                                 z,
-                                                 voxel,
-                                                 ref vertexBuffer,
-                                                 ref triangleBuffer,
-                                                 ref uvBuffer,
-                                                 textureUVs
-                                             );
-                                         }
-
-                                         if (faceBuffer[5] != TextureID.AIR) {
-                                             FaceDataDown(
-                                                 x,
-                                                 y,
-                                                 z,
-                                                 voxel,
-                                                 ref vertexBuffer,
-                                                 ref triangleBuffer,
-                                                 ref uvBuffer,
-                                                 textureUVs
-                                             );
+                                             if (faceBuffer[5] != TextureID.AIR) {
+                                                 FaceDataDown(
+                                                     x,
+                                                     y,
+                                                     z,
+                                                     voxel,
+                                                     ref vertexBuffer,
+                                                     ref triangleBuffer,
+                                                     ref uvBuffer,
+                                                     textureUVs
+                                                 );
+                                             }
                                          }
                                      }
                                  }
+
+                                 // Set done with meshing and updating
+                                 //ecb.RemoveComponent<UpdateChunkTag>(entityInQueryIndex, e);
+                                 ecb.RemoveComponent<CreateMeshChunkTag>(
+                                     entityInQueryIndex,
+                                     e
+                                 );
+                                 ecb.AddComponent<RenderChunkTag>(entityInQueryIndex, e);
                              }
+                         )
+                        .WithDeallocateOnJobCompletion(textureUVs)
+                        .ScheduleParallel();
 
-                             // Set done with meshing and updating
-                             //ecb.RemoveComponent<UpdateChunkTag>(entityInQueryIndex, e);
-                             ecb.RemoveComponent<CreateMeshChunkTag>(
-                                 entityInQueryIndex,
-                                 e
-                             );
-                             ecb.AddComponent<RenderChunkTag>(entityInQueryIndex, e);
-                         }
-                     )
-                    .ScheduleParallel();
-            
+                // temp1.Dispose();
+                // temp2.Dispose();
+            }
+
             //textureUVs.Dispose();
-
-            // Entities.WithAll<DisableSystemTag>().WithAll<ChunkTag, UpdateChunkTag, RenderChunkTag>()
-            //         .WithoutBurst()
-            //         .ForEach(
-            //              (
-            //                  Entity                                   e,
-            //                  int                                      entityInQueryIndex,
-            //                  ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
-            //                  ref DynamicBuffer<NormalBufferElement>   normalBuffer,
-            //                  ref DynamicBuffer<UVBufferElement>       uvBuffer,
-            //                  ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
-            //                  in  Translation                          translation,
-            //                  in  Rotation                             rotation
-            //              ) => {
-            //                  // create chunk mesh
-            //                  // var mesh = new Mesh();
-            //                  // SetMesh(
-            //                  //     mesh,
-            //                  //     vertexBuffer.Reinterpret<float3>(),
-            //                  //     uvBuffer.Reinterpret<float2>(),
-            //                  //     normalBuffer.Reinterpret<float3>(),
-            //                  //     triangleBuffer.Reinterpret<int>()
-            //                  // );
-            //                  //
-            //                  // Graphics.DrawMeshNow(mesh, translation.Value, rotation.Value);
-            //
-            //                  // Set done with meshing and updating
-            //                  ecb2.RemoveComponent<UpdateChunkTag>(e);
-            //                  ecb2.RemoveComponent<RenderChunkTag>(e);
-            //              }
-            //          )
-            //         .Run();
-
-            // Entities.WithAll<ChunkTag, UpdateChunkTag, CreateMeshChunkTag>()
-            //         .ForEach(
-            //              (
-            //                  Entity                                       e,
-            //                  int                                          entityInQueryIndex,
-            //                  ref DynamicBuffer<VoxelBufferElement>        voxelBuffer,
-            //                  ref DynamicBuffer<VertexBufferElement>       vertexBuffer,
-            //                  ref DynamicBuffer<NormalBufferElement>       normalBuffer,
-            //                  ref DynamicBuffer<UVBufferElement>           uvBuffer,
-            //                  ref DynamicBuffer<TriangleBufferElement>     triangleBuffer,
-            //                  ref DynamicBuffer<VisibleFacesBufferElement> visibleFacesBuffer
-            //              ) => {
-            //                  // for (var n = 0; n < 4; n++) {
-            //                  //     // Our vertex model is specifically organized so that it'll work on any face
-            //                  //     var vertexIndex = face * 4 + n;
-            //                  //     var vertices    = ModelVertices[vertexIndex];
-            //                  //     vertices.x              += start.x + (n == 2 || n == 3 ? dif.x : 0);
-            //                  //     vertices.y              += start.y + (n == 1 || n == 2 ? dif.y : 0);
-            //                  //     vertices.z              += start.z + (n == 1 || n == 3 ? dif.z : 0);
-            //                  //     Vertices[vertCount + n] =  vertices;
-            //                  //
-            //                  //     Vector3 uv = ModelUVs[vertexIndex];
-            //                  //     uv.x *= 1 + uvX;
-            //                  //     uv.y *= 1 + uvY;
-            //                  //     uv.z =  texture;
-            //                  //
-            //                  //     UVs[vertCount + n] = uv;
-            //                  //
-            //                  //     Normals[vertCount + n] = ModelNormals[face];
-            //                  // }
-            //                  //
-            //                  // for (var n = 0; n < 6; n++)
-            //                  //     Indices[trisCount + n] = vertCount + ModelIndices[face * 6 + n];
-            //                  //
-            //                  // // ...
-            //              }
-            //          )
-            //         .ScheduleParallel();
-
             _commandsBuffer.AddJobHandleForProducer(Dependency);
-            //textureUVs.Dispose();
         }
 
         private static int GetIndex(int x, int y, int z) {
@@ -423,7 +220,7 @@ namespace VoxBox.Scripts.Systems {
             ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
             ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
             ref DynamicBuffer<UVBufferElement>       uvBuffer,
-            in  NativeHashMap<int, UV>               textureUVs
+            in  NativeArray<UV>               textureUVs
         ) {
             vertexBuffer.Add(new float3(x - 0.5f, y + 0.5f, z - 0.5f));
             vertexBuffer.Add(new float3(x - 0.5f, y + 0.5f, z + 0.5f));
@@ -455,7 +252,7 @@ namespace VoxBox.Scripts.Systems {
             ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
             ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
             ref DynamicBuffer<UVBufferElement>       uvBuffer,
-            in  NativeHashMap<int, UV>               textureUVs
+            in  NativeArray<UV>               textureUVs
         ) {
             vertexBuffer.Add(new float3(x - 0.5f, y - 0.5f, z + 0.5f));
             vertexBuffer.Add(new float3(x - 0.5f, y - 0.5f, z - 0.5f));
@@ -487,7 +284,7 @@ namespace VoxBox.Scripts.Systems {
             ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
             ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
             ref DynamicBuffer<UVBufferElement>       uvBuffer,
-            in  NativeHashMap<int, UV>               textureUVs
+            in  NativeArray<UV>               textureUVs
         ) {
             vertexBuffer.Add(new float3(x - 0.5f, y - 0.5f, z - 0.5f));
             vertexBuffer.Add(new float3(x - 0.5f, y + 0.5f, z - 0.5f));
@@ -519,7 +316,7 @@ namespace VoxBox.Scripts.Systems {
             ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
             ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
             ref DynamicBuffer<UVBufferElement>       uvBuffer,
-            in  NativeHashMap<int, UV>               textureUVs
+            in  NativeArray<UV>               textureUVs
         ) {
             vertexBuffer.Add(new float3(x + 0.5f, y - 0.5f, z - 0.5f));
             vertexBuffer.Add(new float3(x + 0.5f, y + 0.5f, z - 0.5f));
@@ -551,7 +348,7 @@ namespace VoxBox.Scripts.Systems {
             ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
             ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
             ref DynamicBuffer<UVBufferElement>       uvBuffer,
-            in  NativeHashMap<int, UV>               textureUVs
+            in  NativeArray<UV>               textureUVs
         ) {
             vertexBuffer.Add(new float3(x + 0.5f, y - 0.5f, z + 0.5f));
             vertexBuffer.Add(new float3(x + 0.5f, y + 0.5f, z + 0.5f));
@@ -583,7 +380,7 @@ namespace VoxBox.Scripts.Systems {
             ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
             ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
             ref DynamicBuffer<UVBufferElement>       uvBuffer,
-            in  NativeHashMap<int, UV>               textureUVs
+            in NativeArray<UV> textureUVs
         ) {
             vertexBuffer.Add(new float3(x - 0.5f, y - 0.5f, z + 0.5f));
             vertexBuffer.Add(new float3(x - 0.5f, y + 0.5f, z + 0.5f));
@@ -614,7 +411,7 @@ namespace VoxBox.Scripts.Systems {
             VoxelID                    voxelID,
             Direction                  direction,
             ref NativeArray<float2>    uvs,
-            in  NativeHashMap<int, UV> textureUVs
+            in NativeArray<UV> textureUVs
         ) {
             var uv = textureUVs[(int)TextureAtlas.GetFaceTexture(voxelID, direction)];
             //var fastNoise = new FastNoise();
@@ -666,8 +463,23 @@ namespace VoxBox.Scripts.Systems {
             }
         }
 
-        public void Dispose() {
-            
+        public static UV GetTextureUVs(TextureID textureID, NativeArray<UV> uvs) {
+            return textureID switch {
+                TextureID.NULL       => uvs[0],
+                TextureID.LOGO       => uvs[1],
+                TextureID.AIR        => uvs[2],
+                TextureID.BEDROCK    => uvs[3],
+                TextureID.GRASS      => uvs[4],
+                TextureID.GRASS_SIDE => uvs[5],
+                TextureID.COBBLE     => uvs[6],
+                TextureID.LIMESTONE  => uvs[7],
+                TextureID.DIRT       => uvs[8],
+                TextureID.LOG_TOP    => uvs[9],
+                TextureID.LOG_SIDE   => uvs[10],
+                _                    => uvs[0]
+            };
         }
+
+        public void Dispose() { }
     }
 }

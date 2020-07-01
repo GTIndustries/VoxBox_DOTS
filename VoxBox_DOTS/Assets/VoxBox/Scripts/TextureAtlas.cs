@@ -19,17 +19,17 @@ namespace VoxBox.Scripts {
     }
 
     public enum TextureID {
-        NULL       = -666,
-        LOGO       = -11,
-        AIR        = -1,
-        BEDROCK    =  0,
-        GRASS      =  1,
-        GRASS_SIDE =  2,
-        COBBLE     =  3,
-        LIMESTONE  =  4,
-        DIRT       =  5,
-        LOG_TOP    =  6,
-        LOG_SIDE   =  7,
+        NULL,
+        LOGO,
+        AIR,
+        BEDROCK,
+        GRASS,
+        GRASS_SIDE,
+        COBBLE,
+        LIMESTONE,
+        DIRT,
+        LOG_TOP,
+        LOG_SIDE,
     }
     
     public enum Direction {
@@ -55,12 +55,12 @@ namespace VoxBox.Scripts {
         }
     }
 
-    public class TextureAtlas : MonoBehaviour, IDisposable {
+    public class TextureAtlas : MonoBehaviour/*, IDisposable*/ {
         [SerializeField] private SpriteAtlas _voxelAtlas = null;
         [SerializeField] private Material _voxelMaterial = null;
         public static SpriteAtlas voxelAtlas;
         public static Material voxelMaterial;
-        [ReadOnly] [NativeDisableParallelForRestriction] public static NativeHashMap<int, UV> textureUVs;
+        public static Dictionary<int, UV> textureUVs = new Dictionary<int, UV>();
         
         public static readonly Dictionary<TextureID, string> TextureNames = new Dictionary<TextureID, string> {
             {TextureID.NULL,       "debug"},
@@ -88,21 +88,15 @@ namespace VoxBox.Scripts {
             {VoxelID.LOG,       "Oak Log"}
         };
         
-        private static readonly int BaseMap                = Shader.PropertyToID("Albedo");
-        private static readonly int Smoothness             = Shader.PropertyToID("Smoothness");
-        private static readonly int Metallic               = Shader.PropertyToID("_Metallic");
+        private static readonly int BaseMap    = Shader.PropertyToID("_BaseColorMap");
+        // private static readonly int Smoothness = Shader.PropertyToID("_Smoothness");
+        // private static readonly int Metallic   = Shader.PropertyToID("_Metallic");
 
         private void Awake() {
-            voxelAtlas = _voxelAtlas;
-            var voxelTexture = voxelAtlas.GetSprite("debug").texture;
-            voxelMaterial = _voxelMaterial;
-            voxelMaterial.SetTexture(BaseMap, voxelTexture);
-            //voxelMaterial.SetTexture("_BaseMap", voxelAtlas.GetSprite("debug").texture);
-            //MaterialSetup();
+            MaterialSetup();
         }
 
         private void Start() {
-            textureUVs = new NativeHashMap<int, UV>(1, Allocator.Persistent);
             PopulateTextureDict();
         }
 
@@ -123,14 +117,19 @@ namespace VoxBox.Scripts {
             }
         }
 
-        private static void MaterialSetup() {
-            var voxelShader  = Shader.Find("HDRP/Lit");
+        private void MaterialSetup() {
+            voxelAtlas = _voxelAtlas;
+            voxelMaterial = new Material(_voxelMaterial);
+            //voxelMaterial.CopyPropertiesFromMaterial(_voxelMaterial);
             var voxelTexture = voxelAtlas.GetSprite("debug").texture;
-            voxelTexture.anisoLevel = 0;
-            voxelMaterial           = new Material(voxelShader);
             voxelMaterial.SetTexture(BaseMap, voxelTexture);
-            voxelMaterial.SetFloat(Smoothness, 0f);
-            voxelMaterial.SetFloat(Metallic, 0.5f);
+            // var voxelShader  = voxelMaterial.shader;
+            // var voxelTexture = voxelAtlas.GetSprite("debug").texture;
+            // voxelTexture.anisoLevel = 0;
+            // voxelMaterial           = new Material(voxelShader);
+            // voxelMaterial.SetTexture(BaseMap, voxelTexture);
+            // voxelMaterial.SetFloat(Smoothness, 0f);
+            // voxelMaterial.SetFloat(Metallic, 0.5f);
             //voxelMaterial.mainTexture = voxelAtlas.GetSprite("debug").texture;
         }
     
@@ -176,12 +175,29 @@ namespace VoxBox.Scripts {
             };
         }
 
-        public void Dispose() {
-            textureUVs.Dispose();
-        }
+        // public static UV GetTextureUVs(TextureID textureID, NativeArray<UV> textureArray) {
+        //     return textureID switch {
+        //         TextureID.NULL       => textureArray[0],
+        //         TextureID.LOGO       => textureArray[1],
+        //         TextureID.AIR        => textureArray[2],
+        //         TextureID.BEDROCK    => textureArray[3],
+        //         TextureID.GRASS      => textureArray[4],
+        //         TextureID.GRASS_SIDE => textureArray[5],
+        //         TextureID.COBBLE     => textureArray[6],
+        //         TextureID.LIMESTONE  => textureArray[7],
+        //         TextureID.DIRT       => textureArray[8],
+        //         TextureID.LOG_TOP    => textureArray[9],
+        //         TextureID.LOG_SIDE   => textureArray[10],
+        //         _                    => textureArray[0]
+        //     };
+        // }
 
-        ~TextureAtlas() {
-            Dispose();
-        }
+        // public void Dispose() {
+        //     textureUVs.Dispose();
+        // }
+        //
+        // ~TextureAtlas() {
+        //     Dispose();
+        // }
     }
 }

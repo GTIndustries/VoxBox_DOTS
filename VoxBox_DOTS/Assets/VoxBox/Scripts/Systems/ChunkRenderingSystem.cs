@@ -71,7 +71,7 @@ namespace VoxBox.Scripts.Systems {
                         //     );
                         // }
                         if (_entityManager.HasComponent<RenderBounds>(e)) {
-                            Debug.Log("Set RenderBounds");
+                            //Debug.Log("Set RenderBounds");
                             _entityManager.SetComponentData(
                                 e,
                                 new RenderBounds() {
@@ -103,14 +103,10 @@ namespace VoxBox.Scripts.Systems {
                 return;
             }
 
-            mesh.SetVertices(vertices.AsNativeArray() /*, 0, vertices.AsNativeArray().Length*/);
-            //mesh.SetNormals(normals.AsNativeArray(), 0, vertices.AsNativeArray().Length);
-            mesh.SetUVs(0, uvs.AsNativeArray() /*, 0, vertices.AsNativeArray().Length*/);
-            mesh.SetIndices(
-                triangles.AsNativeArray() /*, 0, triangles.AsNativeArray().Length*/,
-                MeshTopology.Triangles,
-                0
-            );
+            mesh.SetVertices(vertices.AsNativeArray());
+            //mesh.SetNormals(normals.AsNativeArray());
+            mesh.SetUVs(0, uvs.AsNativeArray());
+            mesh.SetIndices(triangles.AsNativeArray(), MeshTopology.Triangles, 0);
             //mesh.RecalculateBounds();
             mesh.RecalculateNormals();
             // this.verticesList.Clear();
