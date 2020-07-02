@@ -215,7 +215,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f84c9c002d77caf4e86e01fe5054d909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _voxelAtlas: {fileID: 4343727234628468602, guid: c8325819cdcae8b4a94e80f17a1a7f79, type: 2}
   _voxelMaterial: {fileID: 2100000, guid: 2b253275569fbb845a2819072ad1105a, type: 2}
 --- !u!114 &1356165490
 MonoBehaviour:
@@ -229,8 +228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86bc49dd01ac1f145bc106be503609bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewDistanceHorizontal: 10
-  viewDistanceVertical: 10
+  viewDistanceHorizontal: 8
+  viewDistanceVertical: 8
   chunkGameObjectPrefab: {fileID: 7164470078509729508, guid: b7194a01c93886c42b70adee549be8f7, type: 3}
 --- !u!1 &1687258581
 GameObject:
@@ -463,7 +462,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: -209.11633}
+  m_BoundingSphereOverride: {x: 6.07e-43, y: 2.96e-43, z: 0, w: -2.666689}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0

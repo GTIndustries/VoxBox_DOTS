@@ -26,43 +26,43 @@ namespace VoxBox.Scripts.Components.Buffers {
         /// </summary>
         public static readonly VisibleFacesBufferElement None =
             new VisibleFacesBufferElement {
-                north = TextureID.AIR,
-                east = TextureID.AIR,
-                south = TextureID.AIR,
-                west  = TextureID.AIR,
-                up    = TextureID.AIR,
-                down  = TextureID.AIR,
+                north = false,
+                east  = false,
+                south = false,
+                west  = false,
+                up    = false,
+                down  = false,
             };
 
         /// <summary>
         /// The front face, -1 is invisible otherwise texture id.
         /// </summary>
-        public TextureID north;
+        public bool north;
 
         /// <summary>
         /// The right face, -1 is invisible otherwise texture id.
         /// </summary>
-        public TextureID east;
+        public bool east;
 
         /// <summary>
         /// The back face, -1 is invisible otherwise texture id.
         /// </summary>
-        public TextureID south;
+        public bool south;
 
         /// <summary>
         /// The left face, -1 is invisible otherwise texture id.
         /// </summary>
-        public TextureID west;
+        public bool west;
 
         /// <summary>
         /// The top face, -1 is invisible otherwise texture id.
         /// </summary>
-        public TextureID up;
+        public bool up;
 
         /// <summary>
         /// The bottom face, -1 is invisible otherwise texture id.
         /// </summary>
-        public TextureID down;
+        public bool down;
 
         /// <summary>
         ///     The this.
@@ -76,7 +76,7 @@ namespace VoxBox.Scripts.Components.Buffers {
         /// <returns>
         ///     The texture id of the face requested. -1 if invisible.
         /// </returns>
-        public TextureID this[int face] =>
+        public bool this[int face] =>
             face switch {
                 0 => north,
                 1 => east,

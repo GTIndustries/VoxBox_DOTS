@@ -48,7 +48,7 @@ namespace VoxBox.Scripts.Systems {
 
         protected override void OnUpdate() {
             ApplyMeshData();
-            CleanGameObjects();
+            //CleanGameObjects();
         }
 
         private void ApplyMeshData() {
@@ -63,7 +63,7 @@ namespace VoxBox.Scripts.Systems {
                         int    entityInQueryIndex,
                         //ref DynamicBuffer<EntityBufferElement>  entityBuffer,
                         in DynamicBuffer<VertexBufferElement>   vertexBuffer,
-                        in DynamicBuffer<NormalBufferElement>   normalBuffer,
+                        //in DynamicBuffer<NormalBufferElement>   normalBuffer,
                         in DynamicBuffer<UVBufferElement>       uvBuffer,
                         in DynamicBuffer<TriangleBufferElement> triangleBuffer,
                         in Translation                          translation,
@@ -92,7 +92,7 @@ namespace VoxBox.Scripts.Systems {
                             ref mesh,
                             vertexBuffer.Reinterpret<float3>(),
                             uvBuffer.Reinterpret<float2>(),
-                            normalBuffer.Reinterpret<float3>(),
+                            //normalBuffer.Reinterpret<float3>(),
                             triangleBuffer.Reinterpret<int>()
                         );
 
@@ -135,6 +135,9 @@ namespace VoxBox.Scripts.Systems {
                             );
                         }
 
+                        // Set done with meshing and updating
+                        ecb.RemoveComponent<UpdateChunkTag>(e);
+                        ecb.RemoveComponent<RenderChunkTag>(e);
                         ecb.AddComponent<ChunkMeshTag>(e);
                         // if (_entityManager.HasComponent<RenderMesh>(e)) {
                         //     var renderMesh =
@@ -167,8 +170,7 @@ namespace VoxBox.Scripts.Systems {
         private void CleanGameObjects() {
             var ecb = _commandsBuffer.CreateCommandBuffer();
             Entities
-               .WithAll<ChunkTag, UpdateChunkTag, RenderChunkTag>()
-               .WithAll<ChunkMeshTag>()
+               .WithAll<ChunkTag, ChunkMeshTag>()
                .WithoutBurst()
                .ForEach(
                     (
@@ -186,10 +188,6 @@ namespace VoxBox.Scripts.Systems {
                             GameObject.Destroy(chunks[(int3)translation.Value]);
                             chunks.Remove((int3)translation.Value);
 
-                            // Set done with meshing and updating
-                            ecb.RemoveComponent<UpdateChunkTag>(e);
-                            ecb.RemoveComponent<RenderChunkTag>(e);
-
                             ecb.RemoveComponent<ChunkMeshTag>(e);
                         }
                     }
@@ -203,7 +201,7 @@ namespace VoxBox.Scripts.Systems {
             ref Mesh              mesh,
             DynamicBuffer<float3> vertices,
             DynamicBuffer<float2> uvs,
-            DynamicBuffer<float3> normals,
+            //DynamicBuffer<float3> normals,
             DynamicBuffer<int>    triangles
         ) {
             mesh.Clear();
