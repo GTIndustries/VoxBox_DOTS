@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.U2D;
 using VoxBox.Scripts.Systems;
 
@@ -43,39 +45,36 @@ namespace VoxBox.Scripts {
     //     LOG_SIDE,
     // }
 
+    public struct WorldData {
+        public static readonly int3[] Directions = {
+            new int3( 0,  0, -1), // North
+            new int3( 1,  0,  0), // East
+            new int3( 0,  0,  1), // South
+            new int3(-1,  0,  0), // West
+            new int3( 0,  1,  0), // Up
+            new int3( 0, -1,  0), // Down
+        };
+    }
+
     public class TextureAtlas : MonoBehaviour/*, IDisposable*/ {
-        // [SerializeField] private SpriteAtlas _voxelAtlas = null;
-        [SerializeField] private Material _voxelMaterial = null;
-        // public static SpriteAtlas voxelAtlas;
+        [FormerlySerializedAs("_voxelMaterial")] [SerializeField] private Material voxelMat = null;
         public static Material voxelMaterial;
         
         //private static readonly int BaseMap    = Shader.PropertyToID("_MainTex"); // SRP
         //private static readonly int BaseMap    = Shader.PropertyToID("_BaseColorMap"); // HDRP
         private static readonly int BaseMap    = Shader.PropertyToID("_BaseMap"); // URP
-        // private static readonly int Smoothness = Shader.PropertyToID("_Smoothness");
-        // private static readonly int Metallic   = Shader.PropertyToID("_Metallic");
 
         private void Awake() {
-            Debug.Log("TextureAtlas::Start: Materials loading");
+            //Debug.Log("TextureAtlas::Start: Materials loading");
             MaterialSetup();
-            Debug.Log("TextureAtlas::Start: Materials loaded!");
+            //Debug.Log("TextureAtlas::Start: Materials loaded!");
         }
 
         private void MaterialSetup() {
             ref var voxelAtlas = ref World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<VoxelRegistrationSystem>().voxelAtlas;
-            // voxelAtlas = _voxelAtlas;
-            voxelMaterial = new Material(_voxelMaterial);
-            //voxelMaterial.CopyPropertiesFromMaterial(_voxelMaterial);
+            voxelMaterial = new Material(voxelMat);
             var voxelTexture = voxelAtlas.GetSprite("debug").texture;
             voxelMaterial.SetTexture(BaseMap, voxelTexture);
-            // var voxelShader  = voxelMaterial.shader;
-            // var voxelTexture = voxelAtlas.GetSprite("debug").texture;
-            // voxelTexture.anisoLevel = 0;
-            // voxelMaterial           = new Material(voxelShader);
-            // voxelMaterial.SetTexture(BaseMap, voxelTexture);
-            // voxelMaterial.SetFloat(Smoothness, 0f);
-            // voxelMaterial.SetFloat(Metallic, 0.5f);
-            //voxelMaterial.mainTexture = voxelAtlas.GetSprite("debug").texture;
         }
         
         // public static TextureID GetFaceTexture(VoxelID voxelID, Direction face) {

@@ -11,7 +11,7 @@ namespace VoxBox.Scripts.Systems {
         private const  int                                    ChunkSize = GameWorld.ChunkSize;
 
         protected override void OnCreate() {
-            Debug.Log("Created System: TerrainGeneration");
+            //Debug.Log("Created System: TerrainGeneration");
             _commandsBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
         }
 
@@ -34,7 +34,7 @@ namespace VoxBox.Scripts.Systems {
                              // Set ready for update and facing
                              ecb.RemoveComponent<GenerateTerrainTag>(entityInQueryIndex, e);
                              ecb.AddComponent<UpdateChunkTag>(entityInQueryIndex, e);
-                             ecb.AddComponent<CalculateFacesTag>(entityInQueryIndex, e);
+                             //ecb.AddComponent<CalculateFacesTag>(entityInQueryIndex, e);
                          }
                      )
                     .ScheduleParallel();

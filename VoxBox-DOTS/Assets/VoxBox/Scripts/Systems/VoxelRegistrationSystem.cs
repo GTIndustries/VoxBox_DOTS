@@ -64,7 +64,7 @@ namespace VoxBox.Scripts.Systems {
 
         protected override void OnCreate() {
             base.OnCreate();
-            Debug.Log("Created System: ChunkMeshing");
+            //Debug.Log("Created System: ChunkMeshing");
             
             voxelAtlas = Resources.Load<SpriteAtlas>("Sprites/Atlas_Voxel");
             var voxels = Resources.LoadAll<VoxelBase>("VoxelAssets");
@@ -76,7 +76,7 @@ namespace VoxBox.Scripts.Systems {
             // Allocate base array-of-arrays
             var voxelUVsBaseArray = builder.Allocate(ref uvRoot.uvs, voxels.Length);
             
-            Debug.Log("System|VoxelRegistration: Registering voxels");
+            //Debug.Log("System|VoxelRegistration: Registering voxels");
 
             // foreach (var voxelID in (int[])Enum.GetValues(typeof(VoxelID))) {
             //     if (voxelID >= voxels.Length) {
@@ -133,7 +133,7 @@ namespace VoxBox.Scripts.Systems {
 
             for (var faceIndex = 0; faceIndex < voxelFaces.Length; ++faceIndex) {
                 var voxelFace = voxelFaces[faceIndex];
-                Debug.Log($"Binding sprite: {voxel.name}|{voxelFace.name}");
+                //Debug.Log($"Binding sprite: {voxel.name}|{voxelFace.name}");
                 if (voxelAtlas.CanBindTo(voxelFace)) {
                     var voxelUVs = voxelAtlas.GetSprite(voxelFace.name).uv;
                     var voxelBlobUVs = builder.Allocate(ref voxelBlobFaces[faceIndex], voxelUVs.Length);

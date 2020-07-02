@@ -40,7 +40,7 @@ namespace VoxBox.Scripts.Systems {
         private static Dictionary<int3, GameObject> chunks = new Dictionary<int3, GameObject>();
 
         protected override void OnCreate() {
-            Debug.Log("Created System: ChunkRendering");
+            //Debug.Log("Created System: ChunkRendering");
             _defaultWorld   = World.DefaultGameObjectInjectionWorld;
             _entityManager  = _defaultWorld.EntityManager;
             _commandsBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
@@ -112,8 +112,10 @@ namespace VoxBox.Scripts.Systems {
                         var go       = new GameObject($"Chunk ({e.Index}): {(int3)translation.Value}");
                         var filter   = go.AddComponent<MeshFilter>();
                         var renderer = go.AddComponent<MeshRenderer>();
+                        var collider = go.AddComponent<MeshCollider>();
                         filter.sharedMesh       = mesh;
                         renderer.sharedMaterial = TextureAtlas.voxelMaterial;
+                        collider.sharedMesh     = mesh;
                         go.transform.position   = translation.Value;
                         go.isStatic             = true;
 
@@ -138,7 +140,7 @@ namespace VoxBox.Scripts.Systems {
                         // Set done with meshing and updating
                         ecb.RemoveComponent<UpdateChunkTag>(e);
                         ecb.RemoveComponent<RenderChunkTag>(e);
-                        ecb.AddComponent<ChunkMeshTag>(e);
+                        //ecb.AddComponent<ChunkMeshTag>(e);
                         // if (_entityManager.HasComponent<RenderMesh>(e)) {
                         //     var renderMesh =
                         //         _entityManager.GetSharedComponentData<RenderMesh>(e);
@@ -170,7 +172,7 @@ namespace VoxBox.Scripts.Systems {
         private void CleanGameObjects() {
             var ecb = _commandsBuffer.CreateCommandBuffer();
             Entities
-               .WithAll<ChunkTag, ChunkMeshTag>()
+               .WithAll<ChunkTag, DestroyChunkTag>()
                .WithoutBurst()
                .ForEach(
                     (
@@ -188,7 +190,7 @@ namespace VoxBox.Scripts.Systems {
                             GameObject.Destroy(chunks[(int3)translation.Value]);
                             chunks.Remove((int3)translation.Value);
 
-                            ecb.RemoveComponent<ChunkMeshTag>(e);
+                            ecb.RemoveComponent<DestroyChunkTag>(e);
                         }
                     }
                 )

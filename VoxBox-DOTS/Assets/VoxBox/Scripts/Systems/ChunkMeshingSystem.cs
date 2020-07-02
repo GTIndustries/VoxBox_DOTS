@@ -29,7 +29,7 @@ namespace VoxBox.Scripts.Systems {
 
         // Declare the function overload
         public static TDescription ForEach<TDescription, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
-            this TDescription                                             description,
+            this TDescription                                              description,
             CustomForEachDelegate1<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> codeToRun
         )
             where TDescription : struct, Unity.Entities.CodeGeneratedJobForEach.ISupportForEachWithUniversalDelegate =>
@@ -39,7 +39,7 @@ namespace VoxBox.Scripts.Systems {
     public class ChunkMeshingSystem : SystemBase {
         private        World                                  _defaultWorld;
         private        EntityManager                          _entityManager;
-        private static EndSimulationEntityCommandBufferSystem _commandsBuffer;           
+        private static EndSimulationEntityCommandBufferSystem _commandsBuffer;
 
         private const int ChunkSize = GameWorld.ChunkSize;
         // private readonly List<Vector3> verticesList  = new List<Vector3>();
@@ -48,7 +48,7 @@ namespace VoxBox.Scripts.Systems {
         // private readonly List<int>     trianglesList = new List<int>();
 
         protected override void OnCreate() {
-            Debug.Log("Created System: ChunkMeshing");
+            //Debug.Log("Created System: ChunkMeshing");
             _commandsBuffer = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
 
             _defaultWorld  = World.DefaultGameObjectInjectionWorld;
@@ -65,25 +65,26 @@ namespace VoxBox.Scripts.Systems {
             var group = GetEntityQuery(
                 ComponentType.ReadOnly<ChunkTag>(),
                 ComponentType.ReadOnly<UpdateChunkTag>(),
-                ComponentType.ReadOnly<CreateMeshChunkTag>()
+                ComponentType.ReadOnly<CreateChunkMeshTag>()
             );
             var ecb = _commandsBuffer.CreateCommandBuffer().ToConcurrent();
 
             if (group.CalculateEntityCount() != 0) {
+                //Debug.Log(group.CalculateEntityCount());
                 var voxelUVMap = World.GetOrCreateSystem<VoxelRegistrationSystem>().GetVoxelUVMap();
-                
+
                 // var textureUVs = new NativeArray<UV>(TextureAtlas.textureUVs.Count, Allocator.TempJob);
                 // textureUVs.CopyFrom(TextureAtlas.textureUVs.Values.ToArray());
 
-                Entities.WithAll<ChunkTag, UpdateChunkTag, CreateMeshChunkTag>()
-                        //.WithReadOnly(textureUVs)
-                        //.WithDeallocateOnJobCompletion(textureUVs)
+                Entities.WithAll<ChunkTag, UpdateChunkTag, CreateChunkMeshTag>()
+                         //.WithReadOnly(textureUVs)
+                         //.WithDeallocateOnJobCompletion(textureUVs)
                         .ForEach(
                              (
-                                 Entity                                       e,
-                                 int                                          entityInQueryIndex,
-                                 ref DynamicBuffer<VoxelBufferElement>        voxelBuffer,
-                                 ref DynamicBuffer<VertexBufferElement>       vertexBuffer,
+                                 Entity                                 e,
+                                 int                                    entityInQueryIndex,
+                                 ref DynamicBuffer<VoxelBufferElement>  voxelBuffer,
+                                 ref DynamicBuffer<VertexBufferElement> vertexBuffer,
                                  //ref DynamicBuffer<NormalBufferElement>       normalBuffer,
                                  ref DynamicBuffer<TriangleBufferElement>     triangleBuffer,
                                  ref DynamicBuffer<UVBufferElement>           uvBuffer,
@@ -102,100 +103,26 @@ namespace VoxBox.Scripts.Systems {
                                              var voxel = voxelBuffer[index];
 
                                              if (voxel == VoxelID.AIR) continue;
-                                             
+
                                              // TODO: Calculate mesh
                                              var faceBuffer = visibleFacesBuffer[index];
+
                                              for (var face = 0; face < 6; ++face) {
                                                  ref var faceUVs = ref voxelUVMap.GetUVs(voxel, (Direction)face);
-                                                 
+
                                                  // if face visible
                                                  if (faceBuffer[face]) {
-                                                     switch (face) {
-                                                         case 0: 
-                                                             FaceDataNorth(
-                                                                 x,
-                                                                 y,
-                                                                 z,
-                                                                 voxel,
-                                                                 ref vertexBuffer,
-                                                                 ref triangleBuffer,
-                                                                 ref uvBuffer,
-                                                                 ref faceUVs
-                                                             );
-                                                             break;
-                                                         case 1:
-                                                             FaceDataEast(
-                                                                 x,
-                                                                 y,
-                                                                 z,
-                                                                 voxel,
-                                                                 ref vertexBuffer,
-                                                                 ref triangleBuffer,
-                                                                 ref uvBuffer,
-                                                                 ref faceUVs
-                                                             );
-                                                             break;
-                                                         case 2:
-                                                             FaceDataSouth(
-                                                                 x,
-                                                                 y,
-                                                                 z,
-                                                                 voxel,
-                                                                 ref vertexBuffer,
-                                                                 ref triangleBuffer,
-                                                                 ref uvBuffer,
-                                                                 ref faceUVs
-                                                             );
-                                                             break;
-                                                         case 3:
-                                                             FaceDataWest(
-                                                                 x,
-                                                                 y,
-                                                                 z,
-                                                                 voxel,
-                                                                 ref vertexBuffer,
-                                                                 ref triangleBuffer,
-                                                                 ref uvBuffer,
-                                                                 ref faceUVs
-                                                             );
-                                                             break;
-                                                         case 4:
-                                                             FaceDataUp(
-                                                                 x,
-                                                                 y,
-                                                                 z,
-                                                                 voxel,
-                                                                 ref vertexBuffer,
-                                                                 ref triangleBuffer,
-                                                                 ref uvBuffer,
-                                                                 ref faceUVs
-                                                             );
-                                                             break;
-                                                         case 5:
-                                                             FaceDataDown(
-                                                                 x,
-                                                                 y,
-                                                                 z,
-                                                                 voxel,
-                                                                 ref vertexBuffer,
-                                                                 ref triangleBuffer,
-                                                                 ref uvBuffer,
-                                                                 ref faceUVs
-                                                             );
-                                                             break;
-                                                         default:
-                                                             FaceDataNorth(
-                                                                 x,
-                                                                 y,
-                                                                 z,
-                                                                 voxel,
-                                                                 ref vertexBuffer,
-                                                                 ref triangleBuffer,
-                                                                 ref uvBuffer,
-                                                                 ref voxelUVMap.GetUVs(voxel, Direction.NORTH)
-                                                             );
-                                                             break;
-                                                     }
+                                                     SetFaceData(
+                                                         x,
+                                                         y,
+                                                         z,
+                                                         voxel,
+                                                         (Direction)face,
+                                                         ref vertexBuffer,
+                                                         ref triangleBuffer,
+                                                         ref uvBuffer,
+                                                         ref faceUVs
+                                                     );
                                                  }
                                              }
                                          }
@@ -204,7 +131,7 @@ namespace VoxBox.Scripts.Systems {
 
                                  // Set done with meshing and updating
                                  //ecb.RemoveComponent<UpdateChunkTag>(entityInQueryIndex, e);
-                                 ecb.RemoveComponent<CreateMeshChunkTag>(entityInQueryIndex, e);
+                                 ecb.RemoveComponent<CreateChunkMeshTag>(entityInQueryIndex, e);
                                  ecb.AddComponent<RenderChunkTag>(entityInQueryIndex, e);
                              }
                          )
@@ -219,7 +146,57 @@ namespace VoxBox.Scripts.Systems {
         }
 
         private static int GetIndex(int x, int y, int z) {
-            return x + (y * ChunkSize * ChunkSize) + (z * ChunkSize);
+            return (y * ChunkSize * ChunkSize) + (x * ChunkSize) + z;
+        }
+
+        private static void SetFaceData(
+            int                                      x,
+            int                                      y,
+            int                                      z,
+            VoxelID                                  voxelID,
+            Direction                                faceID,
+            ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
+            ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
+            ref DynamicBuffer<UVBufferElement>       uvBuffer,
+            ref BlobArray<float2>                    faceUVs
+        ) {
+            var center = new int3(x, y, z) + new float3(.5f);
+            var normal = WorldData.Directions[(int)faceID];
+
+            var up                = new int3(0, 1, 0);
+            if (normal.y != 0) up = new int3(-1, 0, 0);
+
+            var front = center + (float3)normal * 0.5f;
+
+            var perp1 = math.cross(normal, up);
+            var perp2 = math.cross(perp1, normal);
+
+            // For a normal going in the negative Z direction (Quad visible to a forward facing camera):
+            // 1---2
+            // | / |
+            // 0---3
+            vertexBuffer.Add(front + (-perp1 + -perp2) * .5f); // 0
+            vertexBuffer.Add(front + (-perp1 + perp2) * .5f);  // 1
+            vertexBuffer.Add(front + (perp1 + perp2) * .5f);   // 2
+            vertexBuffer.Add(front + (perp1 + -perp2) * .5f);  // 3
+
+            var start = vertexBuffer.Length;
+
+            triangleBuffer.Add(start - 4);
+            triangleBuffer.Add(start - 3);
+            triangleBuffer.Add(start - 2);
+
+            triangleBuffer.Add(start - 4);
+            triangleBuffer.Add(start - 2);
+            triangleBuffer.Add(start - 1);
+
+            var uvs = new NativeArray<float2>(4, Allocator.Temp);
+            FaceUVs(ref uvs, ref faceUVs);
+            uvBuffer.Add(uvs[0]);
+            uvBuffer.Add(uvs[1]);
+            uvBuffer.Add(uvs[2]);
+            uvBuffer.Add(uvs[3]);
+            uvs.Dispose();
         }
 
         private static void FaceDataUp(
@@ -230,7 +207,7 @@ namespace VoxBox.Scripts.Systems {
             ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
             ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
             ref DynamicBuffer<UVBufferElement>       uvBuffer,
-            ref BlobArray<float2> faceUVs
+            ref BlobArray<float2>                    faceUVs
         ) {
             vertexBuffer.Add(new float3(x - 0.5f, y + 0.5f, z - 0.5f));
             vertexBuffer.Add(new float3(x - 0.5f, y + 0.5f, z + 0.5f));
@@ -246,7 +223,7 @@ namespace VoxBox.Scripts.Systems {
             triangleBuffer.Add(vertexBuffer.Length - 1);
 
             var uvs = new NativeArray<float2>(4, Allocator.Temp);
-            FaceUVs(x, y, z, voxelID, Direction.UP, ref uvs, ref faceUVs);
+            FaceUVs(ref uvs, ref faceUVs);
             uvBuffer.Add(uvs[0]);
             uvBuffer.Add(uvs[1]);
             uvBuffer.Add(uvs[2]);
@@ -262,7 +239,7 @@ namespace VoxBox.Scripts.Systems {
             ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
             ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
             ref DynamicBuffer<UVBufferElement>       uvBuffer,
-            ref BlobArray<float2> faceUVs
+            ref BlobArray<float2>                    faceUVs
         ) {
             vertexBuffer.Add(new float3(x - 0.5f, y - 0.5f, z + 0.5f));
             vertexBuffer.Add(new float3(x - 0.5f, y - 0.5f, z - 0.5f));
@@ -278,7 +255,7 @@ namespace VoxBox.Scripts.Systems {
             triangleBuffer.Add(vertexBuffer.Length - 1);
 
             var uvs = new NativeArray<float2>(4, Allocator.Temp);
-            FaceUVs(x, y, z, voxelID, Direction.DOWN, ref uvs, ref faceUVs);
+            FaceUVs(ref uvs, ref faceUVs);
             uvBuffer.Add(uvs[0]);
             uvBuffer.Add(uvs[1]);
             uvBuffer.Add(uvs[2]);
@@ -294,7 +271,7 @@ namespace VoxBox.Scripts.Systems {
             ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
             ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
             ref DynamicBuffer<UVBufferElement>       uvBuffer,
-            ref BlobArray<float2> faceUVs
+            ref BlobArray<float2>                    faceUVs
         ) {
             vertexBuffer.Add(new float3(x - 0.5f, y - 0.5f, z - 0.5f));
             vertexBuffer.Add(new float3(x - 0.5f, y + 0.5f, z - 0.5f));
@@ -310,7 +287,7 @@ namespace VoxBox.Scripts.Systems {
             triangleBuffer.Add(vertexBuffer.Length - 1);
 
             var uvs = new NativeArray<float2>(4, Allocator.Temp);
-            FaceUVs(x, y, z, voxelID, Direction.NORTH, ref uvs, ref faceUVs);
+            FaceUVs(ref uvs, ref faceUVs);
             uvBuffer.Add(uvs[0]);
             uvBuffer.Add(uvs[1]);
             uvBuffer.Add(uvs[2]);
@@ -326,7 +303,7 @@ namespace VoxBox.Scripts.Systems {
             ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
             ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
             ref DynamicBuffer<UVBufferElement>       uvBuffer,
-            ref BlobArray<float2> faceUVs
+            ref BlobArray<float2>                    faceUVs
         ) {
             vertexBuffer.Add(new float3(x + 0.5f, y - 0.5f, z - 0.5f));
             vertexBuffer.Add(new float3(x + 0.5f, y + 0.5f, z - 0.5f));
@@ -342,7 +319,7 @@ namespace VoxBox.Scripts.Systems {
             triangleBuffer.Add(vertexBuffer.Length - 1);
 
             var uvs = new NativeArray<float2>(4, Allocator.Temp);
-            FaceUVs(x, y, z, voxelID, Direction.EAST, ref uvs, ref faceUVs);
+            FaceUVs(ref uvs, ref faceUVs);
             uvBuffer.Add(uvs[0]);
             uvBuffer.Add(uvs[1]);
             uvBuffer.Add(uvs[2]);
@@ -358,7 +335,7 @@ namespace VoxBox.Scripts.Systems {
             ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
             ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
             ref DynamicBuffer<UVBufferElement>       uvBuffer,
-            ref BlobArray<float2> faceUVs
+            ref BlobArray<float2>                    faceUVs
         ) {
             vertexBuffer.Add(new float3(x + 0.5f, y - 0.5f, z + 0.5f));
             vertexBuffer.Add(new float3(x + 0.5f, y + 0.5f, z + 0.5f));
@@ -374,7 +351,7 @@ namespace VoxBox.Scripts.Systems {
             triangleBuffer.Add(vertexBuffer.Length - 1);
 
             var uvs = new NativeArray<float2>(4, Allocator.Temp);
-            FaceUVs(x, y, z, voxelID, Direction.SOUTH, ref uvs, ref faceUVs);
+            FaceUVs(ref uvs, ref faceUVs);
             uvBuffer.Add(uvs[0]);
             uvBuffer.Add(uvs[1]);
             uvBuffer.Add(uvs[2]);
@@ -390,7 +367,7 @@ namespace VoxBox.Scripts.Systems {
             ref DynamicBuffer<VertexBufferElement>   vertexBuffer,
             ref DynamicBuffer<TriangleBufferElement> triangleBuffer,
             ref DynamicBuffer<UVBufferElement>       uvBuffer,
-            ref BlobArray<float2> faceUVs
+            ref BlobArray<float2>                    faceUVs
         ) {
             vertexBuffer.Add(new float3(x - 0.5f, y - 0.5f, z + 0.5f));
             vertexBuffer.Add(new float3(x - 0.5f, y + 0.5f, z + 0.5f));
@@ -406,7 +383,7 @@ namespace VoxBox.Scripts.Systems {
             triangleBuffer.Add(vertexBuffer.Length - 1);
 
             var uvs = new NativeArray<float2>(4, Allocator.Temp);
-            FaceUVs(x, y, z, voxelID, Direction.WEST, ref uvs, ref faceUVs);
+            FaceUVs(ref uvs, ref faceUVs);
             uvBuffer.Add(uvs[0]);
             uvBuffer.Add(uvs[1]);
             uvBuffer.Add(uvs[2]);
@@ -415,13 +392,13 @@ namespace VoxBox.Scripts.Systems {
         }
 
         public static void FaceUVs(
-            int                        x,
-            int                        y,
-            int                        z,
-            VoxelID                    voxelID,
-            Direction                  direction,
-            ref NativeArray<float2>    uvs,
-            ref BlobArray<float2>      faceUVs
+            // int                        x,
+            // int                        y,
+            // int                        z,
+            // VoxelID                    voxelID,
+            // Direction                  direction,
+            ref NativeArray<float2> uvs,
+            ref BlobArray<float2>   faceUVs
         ) {
             //var fastNoise = new FastNoise();
 

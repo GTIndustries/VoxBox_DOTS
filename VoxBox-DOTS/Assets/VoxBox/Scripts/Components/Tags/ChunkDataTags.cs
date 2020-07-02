@@ -16,13 +16,25 @@ namespace VoxBox.Scripts.Components.Tags {
 
     [GenerateAuthoringComponent]
     [Serializable]
+    public struct SetChunkNeighborsTag : IComponentData { }
+
+    [GenerateAuthoringComponent]
+    [Serializable]
+    public struct FinishChunkNeighborsTag : IComponentData { }
+
+    [GenerateAuthoringComponent]
+    [Serializable]
     public struct CalculateFacesTag : IComponentData { }
 
     [GenerateAuthoringComponent]
     [Serializable]
-    public struct CreateMeshChunkTag : IComponentData { }
+    public struct CreateChunkMeshTag : IComponentData { }
     
     [GenerateAuthoringComponent]
     [Serializable]
     public struct RenderChunkTag : IComponentData { }
+    
+    [GenerateAuthoringComponent]
+    [Serializable]
+    public struct DestroyChunkTag : IComponentData { }
 }

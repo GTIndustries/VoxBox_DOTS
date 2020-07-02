@@ -23,7 +23,7 @@ namespace VoxBox.Scripts {
         private                  EntityManager                _entityManager;
 
         private IEnumerator Start() {
-            Debug.Log("GameWorld::Start: Beginning Setup...");
+            //Debug.Log("GameWorld::Start: Beginning Setup...");
             //yield return null;
 
             _defaultWorld  = World.DefaultGameObjectInjectionWorld;
@@ -40,15 +40,15 @@ namespace VoxBox.Scripts {
                 //     );
             }
 
-            Debug.Log("GameWorld::Start: Setup complete!");
+            //Debug.Log("GameWorld::Start: Setup complete!");
             //yield return null;
 
-            Debug.Log("GameWorld::Start: Creating world...");
+            //Debug.Log("GameWorld::Start: Creating world...");
             //yield return null;
 
             CreateWorld();
 
-            Debug.Log("GameWorld::Start: World done!");
+            //Debug.Log("GameWorld::Start: World done!");
             yield return null;
         }
 
@@ -79,7 +79,7 @@ namespace VoxBox.Scripts {
                 }
             }
 
-            Debug.Log($"Number of chunks: {chunkCount}");
+            //Debug.Log($"Number of chunks: {chunkCount}");
         }
 
         private void CreateChunk(int3 worldPosition) {
