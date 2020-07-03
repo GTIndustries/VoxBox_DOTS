@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Voxel_Grass
   m_EditorClassIdentifier: 
   name: Grass
-  voxelID: 4
+  voxelID: 5
   faces:
   - {fileID: 21300000, guid: 64fad8c6ae89e2a4e95ebc8428c41808, type: 3}
   - {fileID: 21300000, guid: 64fad8c6ae89e2a4e95ebc8428c41808, type: 3}

@@ -37,7 +37,7 @@ namespace VoxBox.Scripts.Systems {
         private        World                                  _defaultWorld;
         private        EntityManager                          _entityManager;
         private static EndSimulationEntityCommandBufferSystem _commandsBuffer;
-        private static Dictionary<int3, GameObject> chunks = new Dictionary<int3, GameObject>();
+        private static Dictionary<int3, GameObject>           chunks = new Dictionary<int3, GameObject>();
 
         protected override void OnCreate() {
             //Debug.Log("Created System: ChunkRendering");
@@ -62,7 +62,7 @@ namespace VoxBox.Scripts.Systems {
                         Entity e,
                         int    entityInQueryIndex,
                         //ref DynamicBuffer<EntityBufferElement>  entityBuffer,
-                        in DynamicBuffer<VertexBufferElement>   vertexBuffer,
+                        in DynamicBuffer<VertexBufferElement> vertexBuffer,
                         //in DynamicBuffer<NormalBufferElement>   normalBuffer,
                         in DynamicBuffer<UVBufferElement>       uvBuffer,
                         in DynamicBuffer<TriangleBufferElement> triangleBuffer,
@@ -76,18 +76,6 @@ namespace VoxBox.Scripts.Systems {
                         
                         var mesh = new Mesh();
 
-                        // var renderMesh = new RenderMesh();
-                        // if (_entityManager.HasComponent<RenderMesh>(chunkMeshEntity)) {
-                        //     renderMesh =
-                        //         _entityManager.GetSharedComponentData<RenderMesh>(chunkMeshEntity);
-                        //     mesh = renderMesh.mesh;
-                        //     //_entityManager.RemoveComponent<RenderMesh>(e);
-                        // }
-                        // if (_entityManager.HasComponent<RenderBounds>(e)) {
-                        //     _entityManager.RemoveComponent<RenderBounds>(e);
-                        // }
-
-
                         SetMesh(
                             ref mesh,
                             vertexBuffer.Reinterpret<float3>(),
@@ -96,18 +84,7 @@ namespace VoxBox.Scripts.Systems {
                             triangleBuffer.Reinterpret<int>()
                         );
 
-
-                        // if (_entityManager.HasComponent<RenderMesh>(chunkMeshEntity)) {
-                        //     _entityManager.SetSharedComponentData(chunkMeshEntity, new RenderMesh {
-                        //         mesh = mesh,
-                        //         material = renderMesh.material
-                        //     });
-                        // }
-
-                        // if (!_entityManager.HasComponent<RenderBounds>(e)) {
-                        //     _entityManager.AddComponent<RenderBounds>(e);
-                        // }
-
+                        // TODO: Create pool of gameobjects to recycle for new chunks to use to avoid instantiation of new go's
                         //Create a gameobject for the rendering
                         var go       = new GameObject($"Chunk ({e.Index}): {(int3)translation.Value}");
                         var filter   = go.AddComponent<MeshFilter>();
@@ -140,30 +117,10 @@ namespace VoxBox.Scripts.Systems {
                         // Set done with meshing and updating
                         ecb.RemoveComponent<UpdateChunkTag>(e);
                         ecb.RemoveComponent<RenderChunkTag>(e);
-                        //ecb.AddComponent<ChunkMeshTag>(e);
-                        // if (_entityManager.HasComponent<RenderMesh>(e)) {
-                        //     var renderMesh =
-                        //         _entityManager.GetSharedComponentData<RenderMesh>(e);
-                        //     _entityManager.SetSharedComponentData(
-                        //         e,
-                        //         new RenderMesh() {
-                        //             mesh = mesh, 
-                        //             material = TextureAtlas.voxelMaterial
-                        //         }
-                        //     );
-                        // }
-                        // if (_entityManager.HasComponent<RenderBounds>(chunkMeshEntity)) {
-                        //     //Debug.Log("Set RenderBounds");
-                        //     _entityManager.SetComponentData(
-                        //         chunkMeshEntity,
-                        //         new RenderBounds() {
-                        //             Value = mesh.bounds.ToAABB()
-                        //         }
-                        //     );
-                        // }
                     }
                 )
                .Run();
+               //.Schedule();
 
             _commandsBuffer.AddJobHandleForProducer(Dependency);
         }
@@ -180,13 +137,13 @@ namespace VoxBox.Scripts.Systems {
                         in Translation translation
                     ) => {
                         if (chunks.TryGetValue(
-                                new int3(
-                                    (int)translation.Value.x,
-                                    (int)translation.Value.y,
-                                    (int)translation.Value.z
-                                ),
-                                out var _
-                            )) {
+                            new int3(
+                                (int)translation.Value.x,
+                                (int)translation.Value.y,
+                                (int)translation.Value.z
+                            ),
+                            out var _
+                        )) {
                             GameObject.Destroy(chunks[(int3)translation.Value]);
                             chunks.Remove((int3)translation.Value);
 
@@ -204,7 +161,7 @@ namespace VoxBox.Scripts.Systems {
             DynamicBuffer<float3> vertices,
             DynamicBuffer<float2> uvs,
             //DynamicBuffer<float3> normals,
-            DynamicBuffer<int>    triangles
+            DynamicBuffer<int> triangles
         ) {
             mesh.Clear();
 

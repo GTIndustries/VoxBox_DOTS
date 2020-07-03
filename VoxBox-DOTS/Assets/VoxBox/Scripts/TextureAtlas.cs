@@ -23,6 +23,7 @@ namespace VoxBox.Scripts {
         NULL,
         LOGO,
         AIR,
+        WATER,
         BEDROCK,
         GRASS,
         COBBLE,
@@ -74,6 +75,7 @@ namespace VoxBox.Scripts {
             ref var voxelAtlas = ref World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<VoxelRegistrationSystem>().voxelAtlas;
             voxelMaterial = new Material(voxelMat);
             var voxelTexture = voxelAtlas.GetSprite("debug").texture;
+            voxelTexture.anisoLevel = 8;
             voxelMaterial.SetTexture(BaseMap, voxelTexture);
         }
         

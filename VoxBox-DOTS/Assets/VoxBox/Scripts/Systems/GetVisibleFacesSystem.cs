@@ -116,11 +116,6 @@ namespace VoxBox.Scripts.Systems {
             var lookup = GetBufferFromEntity<VoxelBufferElement>();
 
             Entities.WithAll<ChunkTag, UpdateChunkTag, CalculateFacesTag>()
-                     // .WithNone<CreateChunkMeshTag>()
-                     // .WithNone<RenderChunkTag>()
-                     // .WithReadOnly(chunkMap)
-                     // .WithDeallocateOnJobCompletion(chunkMap)
-                     //.WithReadOnly(voxelNameMap)
                     .ForEach(
                          (
                              Entity e,
@@ -137,32 +132,15 @@ namespace VoxBox.Scripts.Systems {
                                          var                       voxel    = lookup[e][GetIndex(position)].value;
                                          //var voxelName = voxelNameMap.GetName(voxel);
 
-                                         if (!IsOpaque(voxel)) {
+                                         if (!IsOpaque(voxel) && voxel != VoxelID.WATER) {
                                              face = VisibleFacesBufferElement.None;
                                          }
                                          else {
-                                             // var north = 
-                                             //     
-                                             // var east =
-                                             //     x < ChunkSize - 1
-                                             //  && IsOpaque(voxelBuffer[GetIndex(x + 1, y, z)].value);
-                                             // var south =
-                                             //     z < ChunkSize - 1
-                                             //  && IsOpaque(voxelBuffer[GetIndex(x, y, z + 1)].value);
-                                             // var west =
-                                             //     x >= 1
-                                             //  && IsOpaque(voxelBuffer[GetIndex(x - 1, y, z)].value);
-                                             // var top =
-                                             //     y < ChunkSize - 1
-                                             //  && IsOpaque(voxelBuffer[GetIndex(x, y + 1, z)].value);
-                                             // var bottom =
-                                             //     y >= 1
-                                             //  && IsOpaque(voxelBuffer[GetIndex(x, y - 1, z)].value);
-
                                              // TODO: Convert to face-specific visibility instead of voxel-specific
                                              // inverted because the face is only visible if there *isn't* anything opaque
                                              face = new VisibleFacesBufferElement {
                                                  north = IsFaceVisible(
+                                                     voxel,
                                                      position,
                                                      Direction.NORTH,
                                                      e,
@@ -171,6 +149,7 @@ namespace VoxBox.Scripts.Systems {
                                                      lookup
                                                  ),
                                                  east = IsFaceVisible(
+                                                     voxel,
                                                      position,
                                                      Direction.EAST,
                                                      e,
@@ -179,6 +158,7 @@ namespace VoxBox.Scripts.Systems {
                                                      lookup
                                                  ),
                                                  south = IsFaceVisible(
+                                                     voxel,
                                                      position,
                                                      Direction.SOUTH,
                                                      e,
@@ -187,6 +167,7 @@ namespace VoxBox.Scripts.Systems {
                                                      lookup
                                                  ),
                                                  west = IsFaceVisible(
+                                                     voxel,
                                                      position,
                                                      Direction.WEST,
                                                      e,
@@ -195,6 +176,7 @@ namespace VoxBox.Scripts.Systems {
                                                      lookup
                                                  ),
                                                  up = IsFaceVisible(
+                                                     voxel,
                                                      position,
                                                      Direction.UP,
                                                      e,
@@ -203,6 +185,7 @@ namespace VoxBox.Scripts.Systems {
                                                      lookup
                                                  ),
                                                  down = IsFaceVisible(
+                                                     voxel,
                                                      position,
                                                      Direction.DOWN,
                                                      e,
@@ -239,9 +222,10 @@ namespace VoxBox.Scripts.Systems {
         }
 
         private static bool IsFaceVisible(
+            VoxelID   voxelID,
             int3      voxelPosition,
             Direction direction,
-            Entity    e,
+            Entity    chunkEntity,
             //ref DynamicBuffer<VoxelBufferElement>    voxelBuffer,
             ref DynamicBuffer<NeighborBufferElement> neighborBuffer,
             BufferFromEntity<VoxelBufferElement>     lookup
@@ -249,7 +233,14 @@ namespace VoxBox.Scripts.Systems {
             var neighborVoxelPosition = voxelPosition + WorldData.Directions[(int)direction];
 
             if (IsInRange(neighborVoxelPosition)) {
-                return !IsOpaque(lookup[e][GetIndex(neighborVoxelPosition)].value);
+                var neighborVoxelID = lookup[chunkEntity][GetIndex(neighborVoxelPosition)].value;
+
+                // exception for two water blocks next to each other. they shouldn't show interior faces
+                if (voxelID == VoxelID.WATER && neighborVoxelID == VoxelID.WATER) {
+                    return false;
+                }
+
+                return !IsOpaque(neighborVoxelID);
             }
 
             if (neighborBuffer[(int)direction].value.HasValue) {
@@ -290,7 +281,14 @@ namespace VoxBox.Scripts.Systems {
                         throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
                 }
 
-                return !IsOpaque(neighborVoxelBuffer[GetIndex(neighborVoxelPosition)].value);
+                var neighborVoxelID = neighborVoxelBuffer[GetIndex(neighborVoxelPosition)].value;
+
+                // exception for two water blocks next to each other. they shouldn't show interior faces
+                if (voxelID == VoxelID.WATER && neighborVoxelID == VoxelID.WATER) {
+                    return false;
+                }
+
+                return !IsOpaque(neighborVoxelID);
             }
 
             // neighbor voxel isn't in chunk and there is no neighbor chunk
@@ -303,6 +301,7 @@ namespace VoxBox.Scripts.Systems {
             return voxelID switch {
                 VoxelID.LOGO      => true,
                 VoxelID.AIR       => false,
+                VoxelID.WATER     => false,
                 VoxelID.BEDROCK   => true,
                 VoxelID.NULL      => false,
                 VoxelID.GRASS     => true,
@@ -318,6 +317,7 @@ namespace VoxBox.Scripts.Systems {
             return voxelID switch {
                 VoxelID.LOGO      => true,
                 VoxelID.AIR       => false,
+                VoxelID.WATER     => false,
                 VoxelID.BEDROCK   => true,
                 VoxelID.NULL      => false,
                 VoxelID.GRASS     => true,

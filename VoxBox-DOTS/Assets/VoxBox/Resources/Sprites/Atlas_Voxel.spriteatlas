@@ -39,12 +39,12 @@ SpriteAtlas:
       blockOffset: 1
       allowAlphaSplitting: 0
       enableRotation: 0
-      enableTightPacking: 1
+      enableTightPacking: 0
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 18bd3b9d5760cf3449e9d40f3a981155, type: 3}
-    totalSpriteSurfaceArea: 1216
+    totalSpriteSurfaceArea: 1280
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -65,6 +65,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 50c8b7d87a4e5594e99f061745103dd4, type: 3}
   - {fileID: 21300000, guid: e5f56709948c6124ea3ea63acdae7612, type: 3}
   - {fileID: 21300000, guid: 2ed9495b66babcc4cbfcaa5f9bb7c733, type: 3}
+  - {fileID: 21300000, guid: 56b355cc3cb2ee549961ba5df27bb45a, type: 3}
   - {fileID: 21300000, guid: d010b7dc836abf442afe11366c0b3a21, type: 3}
   - {fileID: 21300000, guid: 9c5770edc0ba67c46a831a302cb1b4b7, type: 3}
   - {fileID: 21300000, guid: cb969cce733a8e84da44599f2d3dce13, type: 3}
@@ -85,6 +86,7 @@ SpriteAtlas:
   - lego
   - unit_voxel_grass
   - logo
+  - water
   - mud
   - wood_plank
   - debug_voxel
